@@ -17,7 +17,7 @@ const Title = styled.span`
 export function Nav() {
   return (
     <Wrapper>
-      <Title>DAO Ghorants</Title>
+      <Title>DAO GHO Grants</Title>
       <ConnectButton chainStatus="none" showBalance={false} />
     </Wrapper>
   )

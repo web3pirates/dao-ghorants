@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>DAO Ghorants</title>
+        <title>DAO Gho Grants</title>
         <meta name="description" content="" />
 
         <meta property="og:image" content="" />
@@ -34,7 +34,7 @@ export default function Home() {
           as="main"
           style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
         >
-          <h1>DAO Ghorants</h1>
+          <h1>DAO GHO Grants</h1>
           <p>
             The cutting-edge solution designed to revolutionize the way
             hackathon prizes are distributed.

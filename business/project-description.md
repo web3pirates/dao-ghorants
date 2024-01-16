@@ -1,8 +1,8 @@
-# DAO Ghorants - Next-Gen Hackathon Prize Distribution Tool for DAOs
+# DAO GHO Grants - Next-Gen Hackathon Prize Distribution Tool for DAOs
 
 ## Description
 
-Welcome to **DAO Ghorants**, the cutting-edge solution designed to revolutionize the way hackathon prizes are distributed. Our tool leverages advanced analytics and artificial intelligence to provide a fair and comprehensive evaluation of participants' GitHub repositories, ensuring that recognition is based on merit and contribution quality.
+Welcome to **DAO GHO Grants**, the cutting-edge solution designed to revolutionize the way hackathon prizes are distributed. Our tool leverages advanced analytics and artificial intelligence to provide a fair and comprehensive evaluation of participants' GitHub repositories, ensuring that recognition is based on merit and contribution quality.
 
 ### Key Features
 
@@ -26,7 +26,7 @@ Welcome to **DAO Ghorants**, the cutting-edge solution designed to revolutionize
 ### Benefits
 
 - **Fair and Transparent:**
-  DAO Ghorants ensures a fair and transparent prize distribution process by objectively evaluating GitHub metrics and code quality.
+  DAO GHO Grants ensures a fair and transparent prize distribution process by objectively evaluating GitHub metrics and code quality.
 
 - **Efficient Decision-Making:**
   Save time and resources with automated analysis, allowing organizers to focus on the most promising projects.
@@ -40,8 +40,8 @@ Welcome to **DAO Ghorants**, the cutting-edge solution designed to revolutionize
 ## How it Works
 
 1. Participants submit their GitHub repository links.
-2. DAO Ghorants analyzes commit frequency, individual activity, code quality, and plagiarism.
+2. DAO GHO Grants analyzes commit frequency, individual activity, code quality, and plagiarism.
 3. AI generates an initial evaluation report for each project.
 4. Judges receive comprehensive insights, aiding them in the final decision-making process.
 
-**Join us in shaping the future of hackathon prize distribution with DAO Ghorants - where recognition meets merit, and innovation takes center stage!**
+**Join us in shaping the future of hackathon prize distribution with DAO GHO Grants - where recognition meets merit, and innovation takes center stage!**
