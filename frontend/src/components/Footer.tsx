@@ -39,19 +39,31 @@ export function Footer() {
   return (
     <Wrapper>
       <Links>
-        <Link href="https://gregskril.com/" target="_blank">
-          Link 1
+        <Link href="https://twitter.com/luduvigo" target="_blank">
+          luduvigo
         </Link>
-        <Link href="https://gregskril.com/" target="_blank">
-          Link 2
+        <Link href="https://twitter.com/0xreekee" target="_blank">
+          reekee
+        </Link>
+        <Link href="https://twitter.com/lorenzo_fel" target="_blank">
+          birb
+        </Link>
+        <Link href="https://twitter.com/CKobril" target="_blank">
+          ckobril
+        </Link>
+        <Link href="https://twitter.com/albygiaco98" target="_blank">
+          albygiaco
         </Link>
       </Links>
 
       <Links>
-        <Link href="https://twitter.com/gregskril" target="_blank">
+        <Link href="https://twitter.com/Tide_web3" target="_blank">
           <TwitterIcon />
         </Link>
-        <Link href="https://github.com/gskril/web3-starter" target="_blank">
+        <Link
+          href="https://github.com/web3pirates/dao-ghorants"
+          target="_blank"
+        >
           <GithubIcon />
         </Link>
       </Links>

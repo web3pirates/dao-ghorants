@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Web3 Starter</title>
+        <title>DAO Gho Grants</title>
         <meta name="description" content="" />
 
         <meta property="og:image" content="" />
@@ -34,10 +34,17 @@ export default function Home() {
           as="main"
           style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
         >
-          <h1>Web3 Starter</h1>
+          <h1>DAO GHO Grants</h1>
           <p>
-            This template lays the groundwork needed to build a website that
-            interacts with EVM-compatible blockchains like Ethereum.
+            The cutting-edge solution designed to revolutionize the way
+            hackathon prizes are distributed.
+          </p>
+
+          <p>
+            Our tool leverages <b>advanced analytics</b> and <b>AI</b> to
+            provide a fair and comprehensive evaluation of participants{' '}
+            <b>Github repositories</b>, ensuring that recognition is based on
+            merit and contribution quality.
           </p>
 
           {/* If the page is hydrated and the user is connected, show their address */}
