@@ -19,6 +19,8 @@
 
 - Integrate Lens to store the data
 - ZK proofs for the evaluation
+- Multisig to distribute the prizes
+- Include judges in the evaluation process
 
 ## TO do List Hackathon Prize Distribution
 
