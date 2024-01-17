@@ -22,7 +22,7 @@
 - Multisig to distribute the prizes
 - Include judges in the evaluation process
 
-## TO do List Hackathon Prize Distribution
+## To do List Hackathon Prize Distribution
 
 - Two types of login (wallet based - allowlisted wallest see the admin panel)
   - admin
