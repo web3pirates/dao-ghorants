@@ -22,7 +22,9 @@ const Title = styled.span`
 export function Nav() {
   return (
     <Wrapper>
-      <Title>DAO GHO Grants</Title>
+      <Title>
+        <a href="/">DAO GHO Grants</a>
+      </Title>
       <ConnectButton.Custom>
         {({
           account,

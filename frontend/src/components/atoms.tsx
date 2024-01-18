@@ -103,3 +103,36 @@ export const Description = styled.p`
   color: #6c757d;
   margin-bottom: 2rem;
 `
+
+export const HackathonBox = styled.div`
+  background-color: #d2deff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  width: 300px;
+  text-align: left;
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+
+  h3 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+  }
+`
+
+export const HackathonsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+`
