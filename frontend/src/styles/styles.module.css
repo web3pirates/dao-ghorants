@@ -35,7 +35,7 @@
   padding: 12px 24px;
   border: none;
   border-radius: 12px;
-  background-color: #1888f7;
+  background-color: #007bff;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -68,7 +68,7 @@
   text-align: center;
 }
 .link {
-  color: #1888f7;
+  color: #007bff;
   text-decoration: underline;
 }
 

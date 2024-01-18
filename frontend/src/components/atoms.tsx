@@ -8,6 +8,8 @@ export const Layout = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #f4f7fa;
+  color: #1d3b3b;
   gap: 3rem;
 
   width: 100%;
@@ -23,6 +25,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 35rem;
   margin-left: auto;
+  margin-top: 10rem;
   margin-right: auto;
 `
 
@@ -62,4 +65,41 @@ export const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+`
+
+export const CustomContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+`
+
+export const CreateButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+export const Title = styled.h1`
+  font-size: 2rem;
+  color: #1d3b3b;
+  text-align: center;
+  margin-bottom: 1.5rem;
+`
+
+export const Description = styled.p`
+  text-align: center;
+  color: #6c757d;
+  margin-bottom: 2rem;
 `

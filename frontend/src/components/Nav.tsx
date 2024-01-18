@@ -4,11 +4,14 @@ import styled from 'styled-components'
 import styles from '../styles/styles.module.css'
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
+  position: fixed;
+  margin-right: auto;
+  margin-left: auto;
 `
 
 const Title = styled.span`

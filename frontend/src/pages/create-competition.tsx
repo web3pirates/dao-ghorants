@@ -6,11 +6,13 @@ import { Nav } from '@/components/Nav'
 import {
   Button,
   Container,
+  Description,
   Form,
   FormGroup,
   Input,
   Label,
   Layout,
+  Title,
 } from '@/components/atoms'
 
 // Page component
@@ -19,10 +21,10 @@ const CreateCompetitionPage = () => {
     name: '',
     startDate: '',
     endDate: '',
-    numberOfPrizes: '',
+    reward: '',
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
@@ -30,7 +32,7 @@ const CreateCompetitionPage = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
     console.log('Form Data:', formData)
     // Handle form submission logic here
@@ -39,10 +41,17 @@ const CreateCompetitionPage = () => {
   return (
     <Layout>
       <Nav />
+
       <Container
         as="main"
         style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
       >
+        <Title>Create Your Own Competition</Title>
+        <Description>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Description>
+
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor="name">Competition Name:</Label>
@@ -50,6 +59,7 @@ const CreateCompetitionPage = () => {
               type="text"
               id="name"
               name="name"
+              placeholder="Enter competition name"
               value={formData.name}
               onChange={handleChange}
             />
@@ -75,12 +85,13 @@ const CreateCompetitionPage = () => {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="numberOfPrizes">Number of Prizes:</Label>
+            <Label htmlFor="reward">Reward for winners (USD):</Label>
             <Input
               type="number"
-              id="numberOfPrizes"
-              name="numberOfPrizes"
-              value={formData.numberOfPrizes}
+              id="reward"
+              name="reward"
+              placeholder="Enter reward in USD"
+              value={formData.reward}
               onChange={handleChange}
             />
           </FormGroup>
