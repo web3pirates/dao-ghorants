@@ -4,47 +4,54 @@ pragma solidity ^0.8.23;
 import {IERC20} from "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 struct Proposal {
-    address token;
     uint256 amount;
-    bool fulfilled;
+    address proposer;
+    address redeemer;
+    bool redeemed;
 }
+
+IERC20 constant ghoToken = IERC20(0xc4bF5CbDaBE595361438F8c6a187bDc330539c60);
 
 contract ProposalManager {
     mapping(uint256 => Proposal) proposals;
+    uint256 lastId;
 
-    event ProposalCreated(uint256 id);
+    event ProposalCreated(address proposer, uint256 id);
+    event ProposalRedeemed(address redeemer, uint256 id);
 
-    function createProposal(address token, uint256 amount, uint256 id) public {
-        require(token != address(0) && amount != 0, "Invalid input parameters");
-        require(
-            proposals[id].token == address(0) && proposals[id].amount == 0,
-            "Proposal already created"
-        );
+    function createProposal(uint256 amount) public {
+        require(amount != 0, "Amount must be greater than zero");
 
-        IERC20(token).transferFrom(msg.sender, address(this), amount);
-        proposals[id] = Proposal(token, amount, false);
+        uint256 proposalId = lastId + 1;
+
+        ghoToken.transferFrom(msg.sender, address(this), amount);
+        proposals[proposalId] = Proposal(amount, msg.sender, address(0), false);
+
+        emit ProposalCreated(msg.sender, proposalId);
     }
 
-    function fulfillProposal(
-        uint256 id,
-        address receiver,
-        uint256 secret
-    ) public {
-        Proposal memory proposal = proposals[id];
-        require(
-            proposal.token != address(0) && proposal.amount != 0,
-            "Proposal not found"
-        );
-        require(_verifySecret(secret), "Not authorized");
+    function acceptProposal(address reedeemer, uint256 id) public {
+        Proposal storage proposal = proposals[id];
 
-        IERC20(proposal.token).transferFrom(
-            address(this),
-            receiver,
-            proposal.amount
+        require(
+            proposal.proposer == msg.sender,
+            "Only proposer can accept a proposal"
         );
+
+        proposal.redeemer = reedeemer;
     }
 
-    function _verifySecret(uint256 secret) internal view returns (bool) {
-        return true;
+    function reedeemProposal(uint256 id, address redeemer) public {
+        Proposal storage proposal = proposals[id];
+        require(!proposal.redeemed, "Proposal reward already redeemed.");
+        require(
+            proposal.redeemer == msg.sender,
+            "You cannot redeem the reward of this proposal."
+        );
+
+        ghoToken.transferFrom(address(this), redeemer, proposal.amount);
+
+        proposal.redeemed = true;
+        emit ProposalRedeemed(redeemer, id);
     }
 }
