@@ -23,7 +23,7 @@ export const Layout = styled.div`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 35rem;
+  max-width: 80rem;
   margin-left: auto;
   margin-top: 10rem;
   margin-right: auto;
@@ -75,6 +75,14 @@ export const CustomContainer = styled(Container)`
   text-align: center;
   padding: 2rem;
 `
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+`
 
 export const CreateButton = styled.button`
   background-color: #007bff;
@@ -101,7 +109,6 @@ export const Title = styled.h1`
 export const Description = styled.p`
   text-align: center;
   color: #6c757d;
-  margin-bottom: 2rem;
 `
 
 export const HackathonBox = styled.div`
@@ -127,6 +134,11 @@ export const HackathonBox = styled.div`
   p {
     margin: 0.5rem 0;
   }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 `
 
 export const HackathonsContainer = styled.div`
@@ -135,4 +147,50 @@ export const HackathonsContainer = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+`
+
+export const StyledImage = styled.img`
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 16rem;
+  object-fit: cover;
+`
+
+export const StyledDetail = styled.div`
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  span {
+    font-weight: bold;
+    color: #007bff;
+  }
+`
+
+export const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    color: #333;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
 `
