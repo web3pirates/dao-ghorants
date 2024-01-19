@@ -9,6 +9,7 @@ export const hackathons = [
     endDate: '2024-03-17',
     prize: '10000 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '0x9a9D075A63BE26e0a2D905E49715A26B4163396c',
   },
   {
     imageUrl: '/images/hackathon2.png',
@@ -20,6 +21,7 @@ export const hackathons = [
     endDate: '2024-04-24',
     prize: '7500 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '',
   },
   {
     imageUrl: '/images/hackathon3.png',
@@ -31,6 +33,7 @@ export const hackathons = [
     endDate: '2024-05-07',
     prize: '12000 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '',
   },
   {
     imageUrl: '/images/hackathon4.png',
@@ -42,6 +45,7 @@ export const hackathons = [
     endDate: '2024-06-20',
     prize: '8000 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '',
   },
   {
     imageUrl: '/images/hackathon5.png',
@@ -53,6 +57,7 @@ export const hackathons = [
     endDate: '2024-07-14',
     prize: '9000 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '',
   },
   {
     imageUrl: '/images/hackathon6.png',
@@ -64,6 +69,7 @@ export const hackathons = [
     endDate: '2024-08-11',
     prize: '11000 USD',
     githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
+    admin: '',
   },
 ]
 
@@ -74,6 +80,7 @@ export const submissions = [
     slug: 'global-code-challenge',
     address: '0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c',
     githubUrl: 'https://github.com/example',
+    proposalId: 'global-code-challenge',
   },
   {
     id: 'sdfo',
@@ -81,6 +88,7 @@ export const submissions = [
     slug: 'global-code-challenge',
     address: '0x8d3e029c4c5a0b54d5dc17e0aadc383d2db43b0a',
     githubUrl: 'https://github.com/example',
+    proposalId: 'global-code-challenge',
   },
   {
     id: 'eos',
@@ -88,5 +96,6 @@ export const submissions = [
     slug: 'global-code-challenge',
     address: '0x4d5dc17e0aadc383d2db43b0a0d3e029c4c5a0b5',
     githubUrl: 'https://github.com/example',
+    proposalId: 'global-code-challenge',
   },
 ]

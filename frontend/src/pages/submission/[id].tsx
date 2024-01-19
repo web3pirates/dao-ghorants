@@ -1,8 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import { sepolia, useAccount } from 'wagmi'
+import { waitForTransaction, writeContract } from 'wagmi/actions'
 
+import { proposalManagerAbi } from '@/abi/ProposalManager'
 import { Nav } from '@/components/Nav'
 import {
   Button,
@@ -13,17 +16,58 @@ import {
 } from '@/components/atoms'
 import { useOpenAI } from '@/hooks/useOpenAI'
 import { CONTRACT_ADDRESS } from '@/utils/constants'
-import { submissions } from '@/utils/data'
+import { hackathons, submissions } from '@/utils/data'
 
 const SubmissionView = () => {
+  const [gptJudgement, setGptJudgement] = useState<string | null>(null)
+  const [isTransacting, setIsTransacting] = useState(false)
   const router = useRouter()
   const { judgeRepo } = useOpenAI()
-  const [gptJudgement, setGptJudgement] = useState<string | null>(null)
+  const { address } = useAccount()
   const { id } = router.query
 
   const submission = submissions.find((s) => s.id === id)
+  const proposal = hackathons.find((h) => h.slug === submission?.proposalId)
 
-  if (!submission)
+  const isProposalAdmin = useMemo(
+    () => address === proposal?.admin,
+    [address, proposal]
+  )
+
+  const awardPrize = useCallback(async () => {
+    if (!submission || !proposal || !isProposalAdmin) return
+
+    setIsTransacting(true)
+    const { hash } = await writeContract({
+      abi: proposalManagerAbi,
+      address: CONTRACT_ADDRESS,
+      chainId: sepolia.id,
+      functionName: 'acceptProposal',
+      args: [submission.address, submission.id],
+    })
+
+    // add loader for transaction
+
+    const transaction = await waitForTransaction({
+      chainId: sepolia.id,
+      hash,
+    })
+
+    //add success message
+    setIsTransacting(false)
+  }, [isProposalAdmin, proposal, submission])
+
+  const analyzeRepo = async () => {
+    if (!submission || !proposal) return
+    const judgement = await judgeRepo(
+      proposal.description,
+      submission.githubUrl
+    )
+
+    setGptJudgement(judgement)
+  }
+
+  if (!submission || !proposal)
     return (
       <>
         <Head>Page not found</Head>
@@ -31,23 +75,11 @@ const SubmissionView = () => {
       </>
     )
 
-  const analyzeRepo = async () => {
-    const judgement = await judgeRepo(
-      'competition prompt',
-      submission.githubUrl
-    )
-
-    setGptJudgement(judgement)
-  }
-
-  const awardPrize = async () => {
-    const contractAddress = CONTRACT_ADDRESS
-    //send transaction only if the wallet connected is the competition admin
-  }
-
   return (
     <>
-      <Head>{submission.title}</Head>
+      <Head>
+        {submission.title}-{proposal.title}
+      </Head>
       <Layout>
         <Nav />
 
@@ -70,7 +102,12 @@ const SubmissionView = () => {
         <Button onClick={analyzeRepo}>Analyze Repo</Button>
         <Description>{gptJudgement}</Description>
 
-        <Button onClick={awardPrize}>Accept and Award Prize</Button>
+        <Button
+          onClick={awardPrize}
+          disabled={!isProposalAdmin || isTransacting}
+        >
+          Accept and Award Prize
+        </Button>
       </Layout>
     </>
   )
