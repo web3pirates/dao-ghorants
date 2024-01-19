@@ -14,18 +14,20 @@ address constant ghoTokenAddress = 0xc4bF5CbDaBE595361438F8c6a187bDc330539c60;
 
 contract ProposalManager {
     mapping(uint256 => Proposal) proposals;
+    uint256 lastId;
 
-    event ProposalCreated(uint256 id);
+    event ProposalCreated(address proposer, uint256 id);
+    event ProposalRedeemed(address redeemer, uint256 id);
 
-    function createProposal(uint256 amount, uint256 id) public {
+    function createProposal(uint256 amount) public {
         require(amount != 0, "Amount must be greater than zero");
-        require(
-            proposals[id].proposer == address(0),
-            "Proposal already created"
-        );
+
+        uint256 proposalId = lastId + 1;
 
         IERC20(ghoTokenAddress).transferFrom(msg.sender, address(this), amount);
-        proposals[id] = Proposal(amount, msg.sender, address(0), false);
+        proposals[proposalId] = Proposal(amount, msg.sender, address(0), false);
+
+        emit ProposalCreated(msg.sender, proposalId);
     }
 
     function acceptProposal(address reedeemer, uint256 id) public {
@@ -39,7 +41,7 @@ contract ProposalManager {
         proposal.redeemer = reedeemer;
     }
 
-    function reedeemProposal(uint256 id, address receiver) public {
+    function reedeemProposal(uint256 id, address redeemer) public {
         Proposal storage proposal = proposals[id];
         require(!proposal.redeemed, "Proposal reward already redeemed.");
         require(
@@ -49,10 +51,11 @@ contract ProposalManager {
 
         IERC20(ghoTokenAddress).transferFrom(
             address(this),
-            receiver,
+            redeemer,
             proposal.amount
         );
 
         proposal.redeemed = true;
+        emit ProposalRedeemed(redeemer, id);
     }
 }
