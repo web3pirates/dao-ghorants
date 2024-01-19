@@ -15,7 +15,7 @@ import {
   Title,
 } from '@/components/atoms'
 import { useOpenAI } from '@/hooks/useOpenAI'
-import { CONTRACT_ADDRESS } from '@/utils/constants'
+import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
 import { hackathons, submissions } from '@/utils/data'
 
 const SubmissionView = () => {
@@ -40,7 +40,7 @@ const SubmissionView = () => {
     setIsTransacting(true)
     const { hash } = await writeContract({
       abi: proposalManagerAbi,
-      address: CONTRACT_ADDRESS,
+      address: PROPOSAL_MANAGER_ADDRESS,
       chainId: sepolia.id,
       functionName: 'acceptProposal',
       args: [submission.address, submission.id],
