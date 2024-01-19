@@ -69,18 +69,21 @@ export const hackathons = [
 
 export const submissions = [
   {
+    id: 'abc',
     title: 'Awesome Project',
     slug: 'global-code-challenge',
     address: '0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c',
     githubUrl: 'https://github.com/example',
   },
   {
+    id: 'sdfo',
     title: 'My first hackathon project',
     slug: 'global-code-challenge',
     address: '0x8d3e029c4c5a0b54d5dc17e0aadc383d2db43b0a',
     githubUrl: 'https://github.com/example',
   },
   {
+    id: 'eos',
     title: 'DAOScore',
     slug: 'global-code-challenge',
     address: '0x4d5dc17e0aadc383d2db43b0a0d3e029c4c5a0b5',

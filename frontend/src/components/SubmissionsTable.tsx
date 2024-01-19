@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import { submissions } from '@/utils/data'
@@ -9,11 +10,9 @@ interface Props {
 }
 const SubmissionsTable = (props: Props) => {
   const { slug } = props
+  const router = useRouter()
 
   const projects = submissions.filter((s) => s.slug === slug)
-  const handleApproveAndSendGrant = () => {
-    console.log('Approving project and sending grant...')
-  }
 
   return (
     <StyledTable>
@@ -21,9 +20,7 @@ const SubmissionsTable = (props: Props) => {
         <tr>
           <th>Title</th>
           <th>Address</th>
-          <th>Project</th>
-          <th>Analyze</th>
-          <th>Appove</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -33,20 +30,9 @@ const SubmissionsTable = (props: Props) => {
             <td>{submission.address}</td>
             <td>
               <Button
-                as="a"
-                href={submission.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => router.push(`/submission/${submission.id}`)}
               >
-                Github
-              </Button>
-            </td>
-            <td>
-              <Button>Analyze Metrics</Button>
-            </td>
-            <td>
-              <Button onClick={handleApproveAndSendGrant}>
-                Approve Project and Send Grant
+                Details
               </Button>
             </td>
           </tr>

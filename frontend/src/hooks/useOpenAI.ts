@@ -10,15 +10,15 @@ const openai = new OpenAI({
 })
 
 export function useOpenAI() {
-  async function judgeRepo(prompt: string, repo: string) {
+  async function judgeRepo(prompt: string, githubUrl: string) {
     const completion = await openai.chat.completions.create({
       messages: [
         {
           role: 'system',
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}". 
-          You need to judge the result which can be found in the github repo at the url: "https://github.com/${repo}" based on if all the requirements above were satisfied.
+          You need to judge the result which can be found in the github repo at the url: "${githubUrl}" based on if all the requirements above were satisfied.
           Take in consideration that the project should also be functionally complete and generally reliable.
-          Answer only with "true" or "false".`,
+          Please respond with a couple of sentences at most.`,
         },
       ],
       model: 'gpt-3.5-turbo',
@@ -27,9 +27,7 @@ export function useOpenAI() {
 
     const answer = completion.choices[0].message.content
 
-    if (answer === 'true') return true
-    else if (answer === 'false') return false
-    else throw new Error('Invalid response')
+    return answer
   }
 
   return { judgeRepo }

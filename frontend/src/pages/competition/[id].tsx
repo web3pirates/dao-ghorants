@@ -7,7 +7,6 @@ import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
 import SubmissionsTable from '@/components/SubmissionsTable'
 import {
-  Button,
   CustomContainer,
   Description,
   Layout,
