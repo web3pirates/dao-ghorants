@@ -10,7 +10,7 @@ struct Proposal {
     bool redeemed;
 }
 
-address constant ghoTokenAddress = 0xc4bF5CbDaBE595361438F8c6a187bDc330539c60;
+IERC20 constant ghoToken = IERC20(0xc4bF5CbDaBE595361438F8c6a187bDc330539c60);
 
 contract ProposalManager {
     mapping(uint256 => Proposal) proposals;
@@ -24,7 +24,7 @@ contract ProposalManager {
 
         uint256 proposalId = lastId + 1;
 
-        IERC20(ghoTokenAddress).transferFrom(msg.sender, address(this), amount);
+        ghoToken.transferFrom(msg.sender, address(this), amount);
         proposals[proposalId] = Proposal(amount, msg.sender, address(0), false);
 
         emit ProposalCreated(msg.sender, proposalId);
@@ -49,11 +49,7 @@ contract ProposalManager {
             "You cannot redeem the reward of this proposal."
         );
 
-        IERC20(ghoTokenAddress).transferFrom(
-            address(this),
-            redeemer,
-            proposal.amount
-        );
+        ghoToken.transferFrom(address(this), redeemer, proposal.amount);
 
         proposal.redeemed = true;
         emit ProposalRedeemed(redeemer, id);
