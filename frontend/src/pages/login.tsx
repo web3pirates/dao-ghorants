@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import Styled from 'styled-components'
 
+import { Button } from '@/components/atoms'
 import { useSharedState } from '@/utils/store'
 
 const client_id = process.env.NEXT_PUBLIC_CLIENT_ID
@@ -9,6 +11,13 @@ const client_secret = process.env.NEXT_PUBLIC_CLIENT_SECRET
 export default function Login() {
   const [{ redirect_uri, proxy_url, isLoggedIn }, dispatch] = useSharedState()
   const [data, setData] = useState({ errorMessage: '', isLoading: false })
+  const router = useRouter()
+
+  const { from } = router.query
+
+  useEffect(() => {
+    if (isLoggedIn) router.push(from ? `/competition/1` : '/')
+  }, [router, isLoggedIn])
 
   useEffect(() => {
     // After requesting Github access, Github redirects back to your app with a code parameter
@@ -26,27 +35,26 @@ export default function Login() {
       }
 
       //Use code parameter and other parameters to make POST request to proxy_server
-      fetch(proxy_url + `/${requestData.code}`)
+      fetch(proxy_url + `/${requestData.code}`, {
+        headers: { 'ngrok-skip-browser-warning': 'true' },
+      })
         .then((response) => {
           return response.json()
         })
         .then((data) => {
-          console.log('DATA', data)
           dispatch({
             type: 'LOGIN',
             payload: { user: data, isLoggedIn: true },
           })
         })
         .catch((error) => {
-          console.log('SORRY ERROR')
-          console.log({ error })
           setData({
             isLoading: false,
             errorMessage: 'Sorry! Login failed',
           })
         })
     }
-  }, [client_id, redirect_uri, proxy_url, dispatch, data])
+  }, [redirect_uri, proxy_url, dispatch, data])
 
   if (isLoggedIn) {
     return <div>Redirect LOGIN</div>
@@ -58,28 +66,22 @@ export default function Login() {
         <div>
           <h1>Github Login</h1>
           <span>{data.errorMessage}</span>
-          <div className="login-container">
-            {data.isLoading ? (
-              <div className="loader-container">
-                <div className="loader"></div>
-              </div>
-            ) : (
-              <>
-                {
-                  // Link to request GitHub access
-                }
-                <a
-                  className="login-link"
-                  href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
-                  onClick={() => {
-                    setData({ ...data, errorMessage: '' })
-                  }}
-                >
-                  <span>Login</span>
-                </a>
-              </>
-            )}
-          </div>
+          {data.isLoading ? (
+            <div className="loader-container">
+              <div className="loader" />
+            </div>
+          ) : (
+            <Button
+              as="a"
+              className="login-link"
+              href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
+              onClick={() => {
+                setData({ ...data, errorMessage: '' })
+              }}
+            >
+              Login
+            </Button>
+          )}
         </div>
       </section>
     </Wrapper>

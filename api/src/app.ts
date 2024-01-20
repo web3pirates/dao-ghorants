@@ -60,7 +60,6 @@ app.get("/competitions/:id/submissions", async (req, res) => {
 
 app.get("/logingithub/:code", async (req, res) => {
   const code = req.params.code;
-  console.log({ code });
   const data = new FormData();
   data.append("client_id", process.env.GITHUB_CLIENT_ID);
   data.append("client_secret", process.env.GITHUB_CLIENT_SECRET);
@@ -74,7 +73,6 @@ app.get("/logingithub/:code", async (req, res) => {
   })
     .then((response) => response.text())
     .then((paramsString) => {
-      console.log({ paramsString });
       let params = new URLSearchParams(paramsString);
       const access_token = params.get("access_token");
 
@@ -87,7 +85,6 @@ app.get("/logingithub/:code", async (req, res) => {
     })
     .then((response) => response.json())
     .then((response) => {
-      console.log({ response });
       return res.status(200).json(response);
     })
     .catch((error) => {
@@ -95,6 +92,7 @@ app.get("/logingithub/:code", async (req, res) => {
       return res.status(400).json(error);
     });
 });
+
 // Endpoint to retrieve a submission by ID
 app.get("/submissions/:id", async (req, res) => {
   const submission = await Submission.find({ id: req.params.id });

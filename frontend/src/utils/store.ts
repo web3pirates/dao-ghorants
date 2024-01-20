@@ -18,7 +18,7 @@ export const initialState: State = {
   user: null,
   redirect_uri: 'http://localhost:3000/login',
   proxy_url:
-    'https://31ae-2001-b07-6464-31f4-3d27-af54-a695-3e5f.ngrok-free.app/logingithub',
+    'https://99d4-2a0e-41a-daec-0-c4e7-40b0-a19e-d079.ngrok-free.app/logingithub', //@dev change this with your api ngroked
 }
 
 export const { Provider: SharedStateProvider, useTracked: useSharedState } =
@@ -32,8 +32,6 @@ type action = {
 export const reducer = (state: State, action: action): State => {
   switch (action.type) {
     case 'LOGIN': {
-      console.log('inside reducer')
-      console.log(action.payload)
       localStorage.setItem(
         'isLoggedIn',
         JSON.stringify(action.payload.isLoggedIn)
@@ -56,7 +54,7 @@ export const reducer = (state: State, action: action): State => {
     case 'SET_REDIRECT': {
       return {
         ...state,
-        redirect_uri: 'http://localhost:3000/login',
+        redirect_uri: 'https://localhost:3000',
       }
     }
     default:

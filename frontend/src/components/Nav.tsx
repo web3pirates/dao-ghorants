@@ -23,7 +23,6 @@ const Title = styled.span`
 
 export function Nav() {
   const [{ user }] = useSharedState()
-  console.log({ user })
 
   return (
     <Wrapper>
