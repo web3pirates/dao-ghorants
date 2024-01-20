@@ -21,7 +21,7 @@ import { http } from '@/utils/fetch'
 const CreateSubmissionPage = () => {
   const [formData, setFormData] = useState({
     id: uuidv4(),
-    name: '',
+    title: '',
     address: '',
     githubUrl: '',
     proposalId: 0,
@@ -80,13 +80,13 @@ const CreateSubmissionPage = () => {
 
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="name">Project Name:</Label>
+            <Label htmlFor="title">Project Name:</Label>
             <Input
               type="text"
-              id="name"
-              name="name"
+              id="title"
+              name="title"
               placeholder="Enter project name"
-              value={formData.name}
+              value={formData.title}
               onChange={handleChange}
             />
           </FormGroup>
