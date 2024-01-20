@@ -54,7 +54,7 @@ app.get("/competitions/:id", async (req, res) => {
 
 // Endpoint to retrieve all submissions for a competition
 app.get("/competitions/:id/submissions", async (req, res) => {
-  const submissions = await Submission.find({ competitionId: req.params.id });
+  const submissions = await Submission.find({ proposalId: req.params.id });
   res.send(submissions);
 });
 

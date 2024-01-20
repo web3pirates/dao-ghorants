@@ -26,8 +26,6 @@ export function useDB() {
         form: '',
         url: `/competitions/${id}`,
       })
-
-      console.log(res)
     } catch (e) {
       console.error(e)
     }

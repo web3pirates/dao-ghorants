@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAsyncMemo } from 'use-async-memo'
-import { useAccount, useEnsName } from 'wagmi'
 
 import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
@@ -19,7 +18,6 @@ import { useIsMounted } from '@/hooks/useIsMounted'
 
 export default function Home() {
   const isMounted = useIsMounted() // Prevent Next.js hydration errors
-  const { address } = useAccount() // Get the user's connected wallet address
   const router = useRouter()
   const { fetchCompetitions } = useDB()
 
