@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo, useState } from 'react'
+import { FaGithub } from 'react-icons/fa'
+import { SiOpenai } from 'react-icons/si'
 import { useAsyncMemo } from 'use-async-memo'
 import { sepolia, useAccount } from 'wagmi'
 import { waitForTransaction, writeContract } from 'wagmi/actions'
@@ -13,6 +15,7 @@ import {
   CustomContainer,
   Description,
   Layout,
+  Row,
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
@@ -94,21 +97,45 @@ const SubmissionView = () => {
 
         <CustomContainer as="main">
           <Title>{submission.title}</Title>
+          <p>Submitted by: {submission.address}</p>
+          <Row>
+            <Button
+              as="a"
+              href={submission.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center', // Center the icon and text vertically
+                width: '120px',
+              }}
+            >
+              <FaGithub
+                style={{ marginRight: '8px', height: '30px' }}
+                size={20}
+              />{' '}
+              {/* GitHub icon */}
+              GitHub
+            </Button>
+            <Button
+              onClick={analyzeRepo}
+              style={{
+                display: 'flex',
+                alignItems: 'center', // Center the icon and text vertically
+                width: '160px',
+                height: '50px',
+              }}
+            >
+              <SiOpenai
+                style={{ marginRight: '8px', height: '30px' }}
+                size={20}
+              />{' '}
+              Analyze Repo
+            </Button>
+          </Row>
         </CustomContainer>
-        <Button
-          as="a"
-          href={submission.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Github
-        </Button>
 
-        {!!gptJudgement ? (
-          <Description>{gptJudgement}</Description>
-        ) : (
-          <Button onClick={analyzeRepo}>Analyze Repo</Button>
-        )}
+        {!!gptJudgement ? <Description>{gptJudgement}</Description> : null}
 
         {isProposalAdmin && (
           <Button onClick={awardPrize} disabled={isTransacting}>
