@@ -5,10 +5,9 @@ export const hackathons = [
     title: 'Global Code Challenge',
     description:
       'The Global Code Challenge is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'global-code-challenge',
     startDate: '2024-03-15',
     endDate: '2024-03-17',
-    prize: '10000 USD',
+    prize: 10000,
     admin: '0x9a9D075A63BE26e0a2D905E49715A26B4163396c',
   },
   {
@@ -17,10 +16,9 @@ export const hackathons = [
     title: 'Innovators Hackfest',
     description:
       'The Innovators Hackfest is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'innovators-hackfest',
     startDate: '2024-04-22',
     endDate: '2024-04-24',
-    prize: '7500 USD',
+    prize: 7500,
     admin: '',
   },
   {
@@ -29,10 +27,9 @@ export const hackathons = [
     title: 'AI Revolution Contest',
     description:
       'The AI Revolution Contest is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'ai-revolution-contest',
     startDate: '2024-05-05',
     endDate: '2024-05-07',
-    prize: '12000 USD',
+    prize: 12000,
     admin: '',
   },
   {
@@ -41,10 +38,9 @@ export const hackathons = [
     title: 'Green Tech Marathon',
     description:
       'The Green Tech Marathon is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'green-tech-marathon',
     startDate: '2024-06-18',
     endDate: '2024-06-20',
-    prize: '8000 USD',
+    prize: 8000,
     admin: '',
   },
   {
@@ -53,10 +49,9 @@ export const hackathons = [
     title: 'Data Science Sprint',
     description:
       'The Data Science Sprint is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'data-science-sprint',
     startDate: '2024-07-12',
     endDate: '2024-07-14',
-    prize: '9000 USD',
+    prize: 9000,
     admin: '',
   },
   {
@@ -65,10 +60,9 @@ export const hackathons = [
     title: 'Blockchain Battle',
     description:
       'The Blockchain Battle is a 48-hour virtual hackathon where developers from all over the world come together to build awesome projects on the blockchain.',
-    slug: 'blockchain-battle',
     startDate: '2024-08-09',
     endDate: '2024-08-11',
-    prize: '11000 USD',
+    prize: 11000,
     admin: '',
   },
 ]

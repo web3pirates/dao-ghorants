@@ -15,6 +15,7 @@ import {
   Layout,
   Title,
 } from '@/components/atoms'
+import { http } from '@/utils/fetch'
 
 // Page component
 const CreateSubmissionPage = () => {
@@ -41,18 +42,25 @@ const CreateSubmissionPage = () => {
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      ['address']: address || '',
-      ['proposalId']: Number(router.query.proposal),
+      address: address || '',
+      proposalId: Number(router.query.competition),
     }))
   }, [address, router.query])
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    console.log('Form Data:', formData)
-    // Handle form submission logic here
-    setIsLoading(true)
 
-    //save submission to DB
+    setIsLoading(true)
+    try {
+      await http({
+        method: 'POST',
+        form: formData,
+        json: true,
+        url: '/submissions',
+      })
+    } catch (e) {
+      console.error(e)
+    }
     setIsLoading(false)
   }
 
@@ -72,11 +80,11 @@ const CreateSubmissionPage = () => {
 
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="name">Project Name:</Label>
+            <Label htmlFor="title">Project Name:</Label>
             <Input
               type="text"
-              id="name"
-              name="name"
+              id="title"
+              name="title"
               placeholder="Enter project name"
               value={formData.title}
               onChange={handleChange}

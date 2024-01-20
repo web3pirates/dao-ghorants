@@ -6,7 +6,6 @@ interface ICompetition extends Document {
   imageUrl: string;
   title: string;
   description: string;
-  slug: string;
   startDate: string;
   endDate: string;
   prize: number;
@@ -27,7 +26,6 @@ const competitionSchema: Schema = new Schema({
   imageUrl: { type: String, require: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  slug: { type: String, required: true },
   prize: { type: Number, required: true },
   admin: { type: String, required: true },
   startDate: { type: Date, required: true },
@@ -36,12 +34,11 @@ const competitionSchema: Schema = new Schema({
 
 const submissionSchema: Schema = new Schema({
   proposalId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true,
-    ref: "Competition",
   },
   id: { type: String, required: true },
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   address: { type: String, required: true },
   githubUrl: { type: String, required: true },
 });

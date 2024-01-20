@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useAccount, useEnsName } from 'wagmi'
+import { useAsyncMemo } from 'use-async-memo'
 
 import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
@@ -13,18 +13,15 @@ import {
   Layout,
   Title,
 } from '@/components/atoms'
+import { useDB } from '@/hooks/useDB'
 import { useIsMounted } from '@/hooks/useIsMounted'
-import { hackathons } from '@/utils/data'
 
 export default function Home() {
   const isMounted = useIsMounted() // Prevent Next.js hydration errors
-  const { address } = useAccount() // Get the user's connected wallet address
   const router = useRouter()
+  const { fetchCompetitions } = useDB()
 
-  const { data: ensName } = useEnsName({
-    address,
-    chainId: 1, // We always want to use ETH mainnet for ENS lookups
-  })
+  const competitions = useAsyncMemo(async () => await fetchCompetitions(), [])
 
   return (
     <>
@@ -62,18 +59,26 @@ export default function Home() {
 
           <Title>Search your favourite competition</Title>
           <HackathonsContainer>
-            {hackathons.map((hackathon, index) => (
-              <HackathonBox
-                key={index}
-                onClick={() => router.push(`competition/${hackathon.slug}`)}
-              >
-                <img src={hackathon.imageUrl} alt={`Hackathon ${index + 1}`} />
-                <h3>{hackathon.title}</h3>
-                <p>Start Date: {hackathon.startDate}</p>
-                <p>End Date: {hackathon.endDate}</p>
-                <p>Prize: {hackathon.prize}</p>
-              </HackathonBox>
-            ))}
+            {!!competitions &&
+              competitions.map((competition, index) => (
+                <HackathonBox
+                  key={index}
+                  onClick={() => router.push(`competition/${competition.id}`)}
+                >
+                  <img
+                    src={competition.imageUrl}
+                    alt={`Hackathon ${index + 1}`}
+                  />
+                  <h3>{competition.title}</h3>
+                  <p>
+                    Start Date: {new Date(competition.startDate).toDateString()}
+                  </p>
+                  <p>
+                    End Date: {new Date(competition.endDate).toDateString()}
+                  </p>
+                  <p>Prize: {competition.prize} GHO</p>
+                </HackathonBox>
+              ))}
           </HackathonsContainer>
         </CustomContainer>
 

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAsyncMemo } from 'use-async-memo'
 import { erc20ABI, sepolia, useAccount } from 'wagmi'
 import { readContract, waitForTransaction, writeContract } from 'wagmi/actions'
@@ -22,18 +22,27 @@ import {
   PROPOSAL_CREATED_TOPIC_0,
   PROPOSAL_MANAGER_ADDRESS,
 } from '@/utils/constants'
+import { http } from '@/utils/fetch'
 
 // Page component
 const CreateCompetitionPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    title: '',
     startDate: '',
     endDate: '',
-    reward: '',
+    description: '',
+    prize: '',
+    admin: '',
+    imageUrl: '',
   })
   const [isLoading, setIsLoading] = useState(false)
 
   const { address } = useAccount()
+
+  useEffect(
+    () => setFormData((data) => ({ ...data, admin: address || '' })),
+    [address]
+  )
 
   const allowance = useAsyncMemo(async () => {
     if (!address) return
@@ -57,8 +66,8 @@ const CreateCompetitionPage = () => {
   }
 
   const amount = useMemo(
-    () => BigInt(formData.reward) * BigInt(10 ** GHO_DECIMALS),
-    [formData.reward]
+    () => BigInt(formData.prize) * BigInt(10 ** GHO_DECIMALS),
+    [formData.prize]
   )
 
   const shouldApprove = useMemo(
@@ -89,8 +98,6 @@ const CreateCompetitionPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    console.log('Form Data:', formData)
-    // Handle form submission logic here
 
     setIsLoading(true)
     const { hash } = await writeContract({
@@ -98,7 +105,7 @@ const CreateCompetitionPage = () => {
       address: PROPOSAL_MANAGER_ADDRESS,
       chainId: sepolia.id,
       functionName: 'createProposal',
-      args: [parseInt(formData.reward) * GHO_DECIMALS],
+      args: [BigInt(formData.prize) * BigInt(10 ** GHO_DECIMALS)],
     })
 
     // add loader for transaction
@@ -109,14 +116,30 @@ const CreateCompetitionPage = () => {
     })
 
     const proposalId = parseInt(
-      transaction.logs.find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
-        ?.topics[2] || '0x0',
+      transaction.logs
+        .find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
+        ?.data.split(PROPOSAL_CREATED_TOPIC_0)[1] || '0x0',
       16
     )
 
-    //add success message
+    const data = {
+      ...formData,
+      id: proposalId,
+      prize: parseFloat(formData.prize),
+    }
 
-    //save proposal to DB
+    try {
+      await http({
+        method: 'POST',
+        form: data,
+        json: true,
+        url: '/competitions',
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
+    //add success message
     setIsLoading(false)
   }
 
@@ -136,13 +159,35 @@ const CreateCompetitionPage = () => {
 
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="name">Competition Name:</Label>
+            <Label htmlFor="title">Competition Title:</Label>
             <Input
               type="text"
-              id="name"
-              name="name"
-              placeholder="Enter competition name"
-              value={formData.name}
+              id="title"
+              name="title"
+              placeholder="Enter competition title"
+              value={formData.title}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="description">Description:</Label>
+            <Input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Enter competition description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="image">Image URL:</Label>
+            <Input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              placeholder="Enter image URL"
+              value={formData.imageUrl}
               onChange={handleChange}
             />
           </FormGroup>
@@ -167,13 +212,13 @@ const CreateCompetitionPage = () => {
             />
           </FormGroup>
           <FormGroup>
-            <Label htmlFor="reward">Reward for winners (GHO):</Label>
+            <Label htmlFor="prize">Prize for winners (GHO):</Label>
             <Input
               type="number"
-              id="reward"
-              name="reward"
+              id="prize"
+              name="prize"
               placeholder="Enter reward in GHO"
-              value={formData.reward}
+              value={formData.prize}
               onChange={handleChange}
             />
           </FormGroup>

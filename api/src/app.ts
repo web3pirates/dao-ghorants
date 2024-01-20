@@ -3,10 +3,14 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import { Competition, Submission } from "./models";
 import dotenv from "dotenv";
+import { fetchRepoInfo } from "./utils/github";
 dotenv.config();
 
 const app = express();
 
+import cors from "cors";
+
+app.use(cors());
 app.use(bodyParser.json());
 
 const mongoUri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_OPTIONS}`;
@@ -44,13 +48,13 @@ app.get("/competitions", async (req, res) => {
 
 // Endpoint to retrieve a competition by ID
 app.get("/competitions/:id", async (req, res) => {
-  const competition = await Competition.findById(req.params.id);
+  const competition = await Competition.find({ id: req.params.id });
   res.send(competition);
 });
 
 // Endpoint to retrieve all submissions for a competition
 app.get("/competitions/:id/submissions", async (req, res) => {
-  const submissions = await Submission.find({ competitionId: req.params.id });
+  const submissions = await Submission.find({ proposalId: req.params.id });
   res.send(submissions);
 });
 
@@ -90,4 +94,16 @@ app.get("/logingithub/:code", async (req, res) => {
       console.log({ error });
       return res.status(400).json(error);
     });
+});
+// Endpoint to retrieve a submission by ID
+app.get("/submissions/:id", async (req, res) => {
+  const submission = await Submission.find({ id: req.params.id });
+  res.send(submission);
+});
+
+app.get("/repoinfo/:owner/:repo", async (req, res) => {
+  const { owner, repo } = req.params;
+  const repoInfo = await fetchRepoInfo(owner, repo);
+
+  res.send(repoInfo);
 });

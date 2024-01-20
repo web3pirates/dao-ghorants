@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useAsyncMemo } from 'use-async-memo'
 
-import { submissions } from '@/utils/data'
+import { useDB } from '@/hooks/useDB'
 
 import { Button, StyledTable } from './atoms'
 
@@ -11,8 +12,12 @@ interface Props {
 const SubmissionsTable = (props: Props) => {
   const { proposalId } = props
   const router = useRouter()
+  const { fetchSubmissions } = useDB()
 
-  const projects = submissions.filter((s) => s.proposalId === proposalId)
+  const submissions = useAsyncMemo(
+    async () => await fetchSubmissions(proposalId),
+    [proposalId]
+  )
 
   return (
     <StyledTable>
@@ -24,19 +29,20 @@ const SubmissionsTable = (props: Props) => {
         </tr>
       </thead>
       <tbody>
-        {projects.map((submission, index) => (
-          <tr key={index}>
-            <td>{submission.title}</td>
-            <td>{submission.address}</td>
-            <td>
-              <Button
-                onClick={() => router.push(`/submission/${submission.id}`)}
-              >
-                Details
-              </Button>
-            </td>
-          </tr>
-        ))}
+        {!!submissions &&
+          submissions.map((submission, index) => (
+            <tr key={index}>
+              <td>{submission.title}</td>
+              <td>{submission.address}</td>
+              <td>
+                <Button
+                  onClick={() => router.push(`/submission/${submission.id}`)}
+                >
+                  Details
+                </Button>
+              </td>
+            </tr>
+          ))}
       </tbody>
     </StyledTable>
   )
