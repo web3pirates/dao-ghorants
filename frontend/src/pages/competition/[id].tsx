@@ -82,7 +82,7 @@ const CompetitionDetail = () => {
                 <Button>Submit your project</Button>
               </Link>
             ) : (
-              <Link href={`/login`} passHref>
+              <Link href={`/login`} passHref style={{ width: 'fit-content' }}>
                 <Button>Login with GitHub</Button>
               </Link>
             ))}

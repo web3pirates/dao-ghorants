@@ -14,7 +14,9 @@ import {
   Button,
   CustomContainer,
   Description,
+  GPTDescription,
   Layout,
+  Loader,
   Row,
   Title,
 } from '@/components/atoms'
@@ -25,6 +27,7 @@ import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
 const SubmissionView = () => {
   const [gptJudgement, setGptJudgement] = useState<string | null>(null)
   const [isTransacting, setIsTransacting] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { judgeRepo } = useOpenAI()
   const { address } = useAccount()
@@ -71,11 +74,13 @@ const SubmissionView = () => {
 
   const analyzeRepo = async () => {
     if (!submission || !proposal) return
+    setIsLoading(true)
     const judgement = await judgeRepo(
       proposal.description,
       submission.githubUrl
     )
 
+    setIsLoading(false)
     setGptJudgement(judgement)
   }
 
@@ -98,6 +103,7 @@ const SubmissionView = () => {
         <CustomContainer as="main">
           <Title>{submission.title}</Title>
           <p>Submitted by: {submission.address}</p>
+          <Description>{submission.description}</Description>
           <Row>
             <Button
               as="a"
@@ -133,9 +139,20 @@ const SubmissionView = () => {
               Analyze Repo
             </Button>
           </Row>
+          <div>
+            {isLoading ? (
+              <div>
+                <Description>Analyzing repository...</Description>
+                <Loader />
+              </div>
+            ) : !!gptJudgement ? (
+              <div>
+                <Description>Repository has been analyzed! </Description>
+                <GPTDescription>{gptJudgement}</GPTDescription>
+              </div>
+            ) : null}
+          </div>
         </CustomContainer>
-
-        {!!gptJudgement ? <Description>{gptJudgement}</Description> : null}
 
         {isProposalAdmin && (
           <Button onClick={awardPrize} disabled={isTransacting}>

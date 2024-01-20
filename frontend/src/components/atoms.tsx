@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { mq } from '@/styles/breakpoints'
 
@@ -111,6 +111,21 @@ export const Description = styled.p`
   color: black;
 `
 
+export const GPTDescription = styled.div`
+  background-color: #f3f4f6; /* Light grey background */
+  border: 1px solid #e5e7eb; /* Slightly darker border for depth */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Spacing inside the box */
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+  color: #1f2937; /* Dark grey text for readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A clean, readable font */
+  text-align: left; /* Align text to the left */
+  font-size: 1rem; /* Standard font size */
+  line-height: 1.5; /* Spacing between lines */
+`
+
 export const HackathonBox = styled.div`
   background-color: #d2deff;
   border: 1px solid #dee2e6;
@@ -203,4 +218,24 @@ export const TextArea = styled.textarea`
   font-size: 1rem;
   line-height: 1.5;
   resize: vertical;
+`
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+// Styled component for the Loader
+export const Loader = styled.div`
+  border: 4px solid #f3f4f6; /* Light grey border */
+  border-top: 4px solid #3498db; /* Blue color for the spinner */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: ${rotate} 2s linear infinite;
+  display: inline-block;
 `
