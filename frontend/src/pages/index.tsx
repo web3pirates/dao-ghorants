@@ -65,7 +65,7 @@ export default function Home() {
             {hackathons.map((hackathon, index) => (
               <HackathonBox
                 key={index}
-                onClick={() => router.push(`competition/${hackathon.slug}`)}
+                onClick={() => router.push(`competition/${hackathon.id}`)}
               >
                 <img src={hackathon.imageUrl} alt={`Hackathon ${index + 1}`} />
                 <h3>{hackathon.title}</h3>

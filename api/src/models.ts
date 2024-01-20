@@ -6,7 +6,6 @@ interface ICompetition extends Document {
   imageUrl: string;
   title: string;
   description: string;
-  slug: string;
   startDate: string;
   endDate: string;
   prize: number;
@@ -27,7 +26,6 @@ const competitionSchema: Schema = new Schema({
   imageUrl: { type: String, require: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  slug: { type: String, required: true },
   prize: { type: Number, required: true },
   admin: { type: String, required: true },
   startDate: { type: Date, required: true },
@@ -47,9 +45,9 @@ const submissionSchema: Schema = new Schema({
 
 export const Competition = mongoose.model<ICompetition>(
   "Competition",
-  competitionSchema,
+  competitionSchema
 );
 export const Submission = mongoose.model<ISubmission>(
   "Submission",
-  submissionSchema,
+  submissionSchema
 );
