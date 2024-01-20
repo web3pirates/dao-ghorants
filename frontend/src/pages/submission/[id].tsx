@@ -108,8 +108,11 @@ const SubmissionView = () => {
           Github
         </Button>
 
-        <Button onClick={analyzeRepo}>Analyze Repo</Button>
-        <Description>{gptJudgement}</Description>
+        {!!gptJudgement ? (
+          <Description>{gptJudgement}</Description>
+        ) : (
+          <Button onClick={analyzeRepo}>Analyze Repo</Button>
+        )}
 
         {isProposalAdmin && (
           <Button onClick={awardPrize} disabled={isTransacting}>
