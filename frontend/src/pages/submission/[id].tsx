@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo, useState } from 'react'
+import { use, useCallback, useMemo, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { SiOpenai } from 'react-icons/si'
 import { useAsyncMemo } from 'use-async-memo'
@@ -21,6 +21,7 @@ import {
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
+import { useGithub } from '@/hooks/useGithub'
 import { useOpenAI } from '@/hooks/useOpenAI'
 import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
 
@@ -32,12 +33,21 @@ const SubmissionView = () => {
   const { judgeRepo } = useOpenAI()
   const { address } = useAccount()
   const { fetchSubmission, fetchCompetition } = useDB()
+  const { fetchRepoInfo } = useGithub()
   const { id } = router.query
 
   const submission = useAsyncMemo(async () => {
     if (!id) return
     return await fetchSubmission(id as string)
   }, [router.query])
+
+  const repoInfo = useAsyncMemo(async () => {
+    if (!submission) return
+    const owner = submission.githubUrl.split('/')[3]
+    return await fetchRepoInfo(owner, submission.githubUrl)
+  }, [submission])
+
+  console.log(repoInfo)
 
   const proposal = useAsyncMemo(async () => {
     if (!submission) return

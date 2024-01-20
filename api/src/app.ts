@@ -101,7 +101,8 @@ app.get("/submissions/:id", async (req, res) => {
 
 app.get("/repoinfo/:owner/:repo", async (req, res) => {
   const { owner, repo } = req.params;
-  const repoInfo = await fetchRepoInfo(owner, repo);
+  const decodedRepoUrl = decodeURIComponent(repo);
+  const repoInfo = await fetchRepoInfo(owner, decodedRepoUrl);
 
   res.send(repoInfo);
 });
