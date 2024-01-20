@@ -26,7 +26,7 @@ const CompetitionDetail = () => {
 
   const competition = useMemo(() => {
     if (!id) return
-    return hackathons.filter((h) => h.slug === id)[0]
+    return hackathons.filter((h) => h.id === Number(id))[0]
   }, [id])
 
   const isAdmin = useMemo(
@@ -62,7 +62,7 @@ const CompetitionDetail = () => {
               <span>Ends at:</span> {competition.endDate}
             </StyledDetail>
             <StyledDetail>
-              <span>Prize:</span> {competition.prize}
+              <span>Prize:</span> {competition.prize} GHO
             </StyledDetail>
           </Row>
 

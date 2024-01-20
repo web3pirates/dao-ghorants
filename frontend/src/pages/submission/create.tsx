@@ -42,17 +42,15 @@ const CreateSubmissionPage = () => {
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
-      ['address']: address || '',
-      ['proposalId']: Number(router.query.competition),
+      address: address || '',
+      proposalId: Number(router.query.competition),
     }))
   }, [address, router.query])
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    console.log('Form Data:', formData)
-    // Handle form submission logic here
-    setIsLoading(true)
 
+    setIsLoading(true)
     try {
       await http({
         method: 'POST',
@@ -63,8 +61,6 @@ const CreateSubmissionPage = () => {
     } catch (e) {
       console.error(e)
     }
-
-    //save submission to DB
     setIsLoading(false)
   }
 
