@@ -2,36 +2,48 @@ import mongoose, { Document, Schema } from "mongoose";
 
 // Interface for the Competition model
 interface ICompetition extends Document {
-  name: string;
-  wallet: string;
-  startDate: Date;
-  endDate: Date;
-  grant: number;
+  id: number;
+  imageUrl: string;
+  title: string;
+  description: string;
+  slug: string;
+  startDate: string;
+  endDate: string;
+  prize: number;
+  admin: string;
 }
 
 // Interface for the Submission model
 interface ISubmission extends Document {
-  competitionId: mongoose.Types.ObjectId;
-  submitterAddress: string;
-  projectLink: string;
+  id: string;
+  title: string;
+  address: string;
+  githubUrl: string;
+  proposalId: mongoose.Types.ObjectId;
 }
 
 const competitionSchema: Schema = new Schema({
-  name: { type: String, required: true },
-  wallet: { type: String, required: true },
+  id: { type: Number, require: true },
+  imageUrl: { type: String, require: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  slug: { type: String, required: true },
+  prize: { type: Number, required: true },
+  admin: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  grant: { type: Number, required: true },
 });
 
 const submissionSchema: Schema = new Schema({
-  competitionId: {
+  proposalId: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: "Competition",
   },
-  submitterAddress: { type: String, required: true },
-  projectLink: { type: String, required: true },
+  id: { type: String, required: true },
+  title: { type: String, required: true },
+  address: { type: String, required: true },
+  githubUrl: { type: String, required: true },
 });
 
 export const Competition = mongoose.model<ICompetition>(
