@@ -32,7 +32,7 @@ const CreateCompetitionPage = () => {
     endDate: '',
     description: '',
     prize: '',
-    address: '',
+    admin: '',
     imageUrl: '',
   })
   const [isLoading, setIsLoading] = useState(false)
@@ -40,7 +40,7 @@ const CreateCompetitionPage = () => {
   const { address } = useAccount()
 
   useEffect(
-    () => setFormData((data) => ({ ...data, address: address || '' })),
+    () => setFormData((data) => ({ ...data, admin: address || '' })),
     [address]
   )
 
@@ -116,8 +116,9 @@ const CreateCompetitionPage = () => {
     })
 
     const proposalId = parseInt(
-      transaction.logs.find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
-        ?.topics[2] || '0x0',
+      transaction.logs
+        .find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
+        ?.data.split(PROPOSAL_CREATED_TOPIC_0)[1] || '0x0',
       16
     )
 
@@ -169,11 +170,22 @@ const CreateCompetitionPage = () => {
             />
           </FormGroup>
           <FormGroup>
+            <Label htmlFor="description">Description:</Label>
+            <Input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Enter competition description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
             <Label htmlFor="image">Image URL:</Label>
             <Input
               type="text"
-              id="image"
-              name="image"
+              id="imageUrl"
+              name="imageUrl"
               placeholder="Enter image URL"
               value={formData.imageUrl}
               onChange={handleChange}
