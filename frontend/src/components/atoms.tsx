@@ -71,8 +71,8 @@ export const CustomContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
   padding: 2rem;
 `
 export const Row = styled.div`
@@ -107,7 +107,7 @@ export const Title = styled.h1`
 `
 
 export const Description = styled.p`
-  text-align: center;
+  text-align: left;
   color: #6c757d;
 `
 
@@ -143,7 +143,7 @@ export const HackathonBox = styled.div`
 
 export const HackathonsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;

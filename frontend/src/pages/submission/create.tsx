@@ -58,6 +58,8 @@ const CreateSubmissionPage = () => {
         json: true,
         url: '/submissions',
       })
+
+      router.push(`/competition/${router.query.competition}`)
     } catch (e) {
       console.error(e)
     }

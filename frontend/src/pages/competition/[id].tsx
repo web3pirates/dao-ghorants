@@ -40,7 +40,7 @@ const CompetitionDetail = () => {
   return (
     <>
       <Head>
-        <title>{competition.title} - DAO GHO Grants</title>
+        <title>{competition.title} - 💰 GHO Grants</title>
         <meta name="description" content={`Details of ${competition.title}`} />
       </Head>
 
