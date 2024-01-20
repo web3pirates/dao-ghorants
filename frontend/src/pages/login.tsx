@@ -13,10 +13,8 @@ export default function Login() {
   const [data, setData] = useState({ errorMessage: '', isLoading: false })
   const router = useRouter()
 
-  const { from } = router.query
-
   useEffect(() => {
-    if (isLoggedIn) router.push(from ? `/competition/1` : '/')
+    if (isLoggedIn) router.push(`/competition/1`)
   }, [router, isLoggedIn])
 
   useEffect(() => {

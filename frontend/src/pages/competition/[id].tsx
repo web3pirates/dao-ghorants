@@ -19,13 +19,12 @@ import {
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
-import { hackathons } from '@/utils/data'
-import { actions, useSharedState } from '@/utils/store'
+import { useSharedState } from '@/utils/store'
 
 const CompetitionDetail = () => {
   const router = useRouter()
   const { address } = useAccount()
-  const [{ isLoggedIn }, dispatch] = useSharedState()
+  const [{ isLoggedIn }] = useSharedState()
   const { fetchCompetition } = useDB()
   const { id } = router.query
 
