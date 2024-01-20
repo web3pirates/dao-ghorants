@@ -18,10 +18,12 @@ import {
   Title,
 } from '@/components/atoms'
 import { hackathons } from '@/utils/data'
+import { actions, useSharedState } from '@/utils/store'
 
 const CompetitionDetail = () => {
   const router = useRouter()
   const { address } = useAccount()
+  const [{ isLoggedIn }, dispatch] = useSharedState()
   const { id } = router.query
 
   const competition = useMemo(() => {
@@ -68,14 +70,19 @@ const CompetitionDetail = () => {
 
           <Row>
             <Title>Submissions</Title>
-            {!isAdmin && (
-              <Link
-                href={`/submission/create?competition=${competition.id}`}
-                passHref
-              >
-                <Button>Submit your project</Button>
-              </Link>
-            )}
+            {!isAdmin &&
+              (isLoggedIn ? (
+                <Link
+                  href={`/submission/create?competition=${competition.id}`}
+                  passHref
+                >
+                  <Button>Submit your project</Button>
+                </Link>
+              ) : (
+                <Link href={`/login`} passHref>
+                  <Button>Login with GitHub</Button>
+                </Link>
+              ))}
           </Row>
           <SubmissionsTable proposalId={competition.id} />
         </CustomContainer>

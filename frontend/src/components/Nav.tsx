@@ -1,6 +1,8 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import styled from 'styled-components'
 
+import { useSharedState } from '@/utils/store'
+
 import styles from '../styles/styles.module.css'
 
 const Wrapper = styled.div`
@@ -20,6 +22,9 @@ const Title = styled.span`
 `
 
 export function Nav() {
+  const [{ user }] = useSharedState()
+  console.log({ user })
+
   return (
     <Wrapper>
       <Title>
