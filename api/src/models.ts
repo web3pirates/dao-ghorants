@@ -16,6 +16,7 @@ interface ICompetition extends Document {
 interface ISubmission extends Document {
   id: string;
   title: string;
+  description: string;
   address: string;
   githubUrl: string;
   proposalId: mongoose.Types.ObjectId;
@@ -38,7 +39,8 @@ const submissionSchema: Schema = new Schema({
     required: true,
   },
   id: { type: String, required: true },
-  name: { type: String, required: true },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   address: { type: String, required: true },
   githubUrl: { type: String, required: true },
 });

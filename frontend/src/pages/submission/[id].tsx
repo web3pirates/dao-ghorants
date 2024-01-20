@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo, useState } from 'react'
+import { use, useCallback, useMemo, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { SiOpenai } from 'react-icons/si'
 import { useAsyncMemo } from 'use-async-memo'
@@ -14,27 +14,40 @@ import {
   Button,
   CustomContainer,
   Description,
+  GPTDescription,
   Layout,
+  Loader,
   Row,
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
+import { useGithub } from '@/hooks/useGithub'
 import { useOpenAI } from '@/hooks/useOpenAI'
 import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
 
 const SubmissionView = () => {
   const [gptJudgement, setGptJudgement] = useState<string | null>(null)
   const [isTransacting, setIsTransacting] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { judgeRepo } = useOpenAI()
   const { address } = useAccount()
   const { fetchSubmission, fetchCompetition } = useDB()
+  const { fetchRepoInfo } = useGithub()
   const { id } = router.query
 
   const submission = useAsyncMemo(async () => {
     if (!id) return
     return await fetchSubmission(id as string)
   }, [router.query])
+
+  const repoInfo = useAsyncMemo(async () => {
+    if (!submission) return
+    const owner = submission.githubUrl.split('/')[3]
+    return await fetchRepoInfo(owner, submission.githubUrl)
+  }, [submission])
+
+  console.log(repoInfo)
 
   const proposal = useAsyncMemo(async () => {
     if (!submission) return
@@ -71,11 +84,13 @@ const SubmissionView = () => {
 
   const analyzeRepo = async () => {
     if (!submission || !proposal) return
+    setIsLoading(true)
     const judgement = await judgeRepo(
       proposal.description,
       submission.githubUrl
     )
 
+    setIsLoading(false)
     setGptJudgement(judgement)
   }
 
@@ -98,6 +113,7 @@ const SubmissionView = () => {
         <CustomContainer as="main">
           <Title>{submission.title}</Title>
           <p>Submitted by: {submission.address}</p>
+          <Description>{submission.description}</Description>
           <Row>
             <Button
               as="a"
@@ -133,9 +149,20 @@ const SubmissionView = () => {
               Analyze Repo
             </Button>
           </Row>
+          <div>
+            {isLoading ? (
+              <div>
+                <Description>Analyzing repository...</Description>
+                <Loader />
+              </div>
+            ) : !!gptJudgement ? (
+              <div>
+                <Description>Repository has been analyzed! </Description>
+                <GPTDescription>{gptJudgement}</GPTDescription>
+              </div>
+            ) : null}
+          </div>
         </CustomContainer>
-
-        {!!gptJudgement ? <Description>{gptJudgement}</Description> : null}
 
         {isProposalAdmin && (
           <Button onClick={awardPrize} disabled={isTransacting}>

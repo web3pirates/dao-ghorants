@@ -14,6 +14,7 @@ import {
   Input,
   Label,
   Layout,
+  TextArea,
   Title,
 } from '@/components/atoms'
 import {
@@ -173,13 +174,13 @@ const CreateCompetitionPage = () => {
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Description:</Label>
-            <Input
-              type="text"
+            <TextArea
               id="description"
               name="description"
               placeholder="Enter competition description"
               value={formData.description}
               onChange={handleChange}
+              rows={5}
             />
           </FormGroup>
           <FormGroup>
