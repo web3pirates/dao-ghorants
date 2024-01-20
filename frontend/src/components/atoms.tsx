@@ -81,7 +81,7 @@ export const Row = styled.div`
   gap: 1rem;
   align-items: center;
   text-align: center;
-  padding: 1rem;
+  /* padding-top: 1rem; */
 `
 
 export const CreateButton = styled.button`
@@ -102,13 +102,13 @@ export const CreateButton = styled.button`
 export const Title = styled.h1`
   font-size: 2rem;
   color: #1d3b3b;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0rem;
+  margin-top: 2.5rem;
 `
 
 export const Description = styled.p`
   text-align: left;
-  color: #6c757d;
+  color: black;
 `
 
 export const HackathonBox = styled.div`
@@ -160,7 +160,7 @@ export const StyledDetail = styled.div`
   margin-top: 1rem;
   font-size: 1rem;
   color: #333;
-  background-color: #f8f9fa;
+  background-color: white;
   border-left: 4px solid #007bff;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;

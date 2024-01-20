@@ -48,9 +48,9 @@ const CompetitionDetail = () => {
         <Nav />
 
         <CustomContainer as="main">
-          <Link href="/">
+          {/* <Link href="/">
             <p>Back to competitions</p>
-          </Link>
+          </Link> */}
 
           <StyledImage src={competition.imageUrl} alt={competition.title} />
 
@@ -70,17 +70,16 @@ const CompetitionDetail = () => {
             </StyledDetail>
           </Row>
 
-          <Row>
-            <Title>Submissions</Title>
-            {!isAdmin && (
-              <Link
-                href={`/submission/create?competition=${competition.id}`}
-                passHref
-              >
-                <Button>Submit your project</Button>
-              </Link>
-            )}
-          </Row>
+          <Title>Submissions</Title>
+
+          {!isAdmin && (
+            <Link
+              href={`/submission/create?competition=${competition.id}`}
+              passHref
+            >
+              <Button>Submit your project</Button>
+            </Link>
+          )}
           <SubmissionsTable proposalId={competition.id} />
         </CustomContainer>
 
