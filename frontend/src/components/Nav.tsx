@@ -27,7 +27,7 @@ export function Nav() {
   return (
     <Wrapper>
       <Title>
-        <a href="/">DAO GHO Grants</a>
+        <a href="/">💰 GHO Grants</a>
       </Title>
       <ConnectButton.Custom>
         {({

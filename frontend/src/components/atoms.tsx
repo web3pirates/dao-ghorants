@@ -71,8 +71,8 @@ export const CustomContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: center;
-  text-align: center;
+  align-items: left;
+  text-align: left;
   padding: 2rem;
 `
 export const Row = styled.div`
@@ -81,7 +81,7 @@ export const Row = styled.div`
   gap: 1rem;
   align-items: center;
   text-align: center;
-  padding: 1rem;
+  /* padding-top: 1rem; */
 `
 
 export const CreateButton = styled.button`
@@ -102,13 +102,13 @@ export const CreateButton = styled.button`
 export const Title = styled.h1`
   font-size: 2rem;
   color: #1d3b3b;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0rem;
+  margin-top: 2.5rem;
 `
 
 export const Description = styled.p`
-  text-align: center;
-  color: #6c757d;
+  text-align: left;
+  color: black;
 `
 
 export const HackathonBox = styled.div`
@@ -143,7 +143,7 @@ export const HackathonBox = styled.div`
 
 export const HackathonsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
@@ -160,7 +160,7 @@ export const StyledDetail = styled.div`
   margin-top: 1rem;
   font-size: 1rem;
   color: #333;
-  background-color: #f8f9fa;
+  background-color: white;
   border-left: 4px solid #007bff;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;

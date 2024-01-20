@@ -4,7 +4,7 @@ import { useAsyncMemo } from 'use-async-memo'
 
 import { useDB } from '@/hooks/useDB'
 
-import { Button, StyledTable } from './atoms'
+import { Button, Description, StyledTable } from './atoms'
 
 interface Props {
   proposalId: number
@@ -19,6 +19,10 @@ const SubmissionsTable = (props: Props) => {
     [proposalId]
   )
 
+  console.log('submissions', submissions)
+
+  if (submissions?.length === 0)
+    return <Description>No submissions yet</Description>
   return (
     <StyledTable>
       <thead>

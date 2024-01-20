@@ -151,10 +151,12 @@ const CreateCompetitionPage = () => {
         as="main"
         style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
       >
-        <Title>Create Your Own Competition</Title>
+        <Title>Create a new Grant</Title>
         <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          By creating a new grant, you will be able to distribute GHO to winners
+          of your grant. You will be able to set the amount of participants, the
+          start and end date of the grant, the prize for winners and the
+          description of the grant.
         </Description>
 
         <Form onSubmit={handleSubmit}>
