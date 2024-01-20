@@ -58,6 +58,41 @@ app.get("/competitions/:id/submissions", async (req, res) => {
   res.send(submissions);
 });
 
+app.get("/logingithub/:code", async (req, res) => {
+  const code = req.params.code;
+  const data = new FormData();
+  data.append("client_id", process.env.GITHUB_CLIENT_ID);
+  data.append("client_secret", process.env.GITHUB_CLIENT_SECRET);
+  data.append("code", code);
+  data.append("redirect_uri", "http://localhost:3000/login");
+
+  // Request to exchange code for an access token
+  fetch(`https://github.com/login/oauth/access_token`, {
+    method: "POST",
+    body: data,
+  })
+    .then((response) => response.text())
+    .then((paramsString) => {
+      let params = new URLSearchParams(paramsString);
+      const access_token = params.get("access_token");
+
+      // Request to return data of a user that has been authenticated
+      return fetch(`https://api.github.com/user`, {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      });
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      return res.status(200).json(response);
+    })
+    .catch((error) => {
+      console.log({ error });
+      return res.status(400).json(error);
+    });
+});
+
 // Endpoint to retrieve a submission by ID
 app.get("/submissions/:id", async (req, res) => {
   const submission = await Submission.find({ id: req.params.id });

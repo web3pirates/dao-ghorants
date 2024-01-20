@@ -19,10 +19,13 @@ import {
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
+import { hackathons } from '@/utils/data'
+import { actions, useSharedState } from '@/utils/store'
 
 const CompetitionDetail = () => {
   const router = useRouter()
   const { address } = useAccount()
+  const [{ isLoggedIn }, dispatch] = useSharedState()
   const { fetchCompetition } = useDB()
   const { id } = router.query
 
@@ -71,15 +74,19 @@ const CompetitionDetail = () => {
           </Row>
 
           <Title>Submissions</Title>
-
-          {!isAdmin && (
-            <Link
-              href={`/submission/create?competition=${competition.id}`}
-              passHref
-            >
-              <Button>Submit your project</Button>
-            </Link>
-          )}
+          {!isAdmin &&
+            (isLoggedIn ? (
+              <Link
+                href={`/submission/create?competition=${competition.id}`}
+                passHref
+              >
+                <Button>Submit your project</Button>
+              </Link>
+            ) : (
+              <Link href={`/login`} passHref>
+                <Button>Login with GitHub</Button>
+              </Link>
+            ))}
           <SubmissionsTable proposalId={competition.id} />
         </CustomContainer>
 
