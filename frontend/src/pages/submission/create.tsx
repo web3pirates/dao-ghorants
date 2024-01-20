@@ -20,7 +20,7 @@ import {
 const CreateSubmissionPage = () => {
   const [formData, setFormData] = useState({
     id: uuidv4(),
-    title: '',
+    name: '',
     address: '',
     githubUrl: '',
     proposalId: 0,
@@ -42,7 +42,7 @@ const CreateSubmissionPage = () => {
     setFormData((prev) => ({
       ...prev,
       ['address']: address || '',
-      ['proposalId']: Number(router.query.proposal),
+      ['proposalId']: Number(router.query.competition),
     }))
   }, [address, router.query])
 
@@ -78,7 +78,7 @@ const CreateSubmissionPage = () => {
               id="name"
               name="name"
               placeholder="Enter project name"
-              value={formData.title}
+              value={formData.name}
               onChange={handleChange}
             />
           </FormGroup>
