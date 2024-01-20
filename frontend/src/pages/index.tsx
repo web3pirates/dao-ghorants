@@ -24,8 +24,6 @@ export default function Home() {
 
   const competitions = useAsyncMemo(async () => await fetchCompetitions(), [])
 
-  console.log(competitions)
-
   return (
     <>
       <Head>

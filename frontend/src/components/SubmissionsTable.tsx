@@ -19,8 +19,6 @@ const SubmissionsTable = (props: Props) => {
     [proposalId]
   )
 
-  console.log('submissions', submissions)
-
   if (submissions?.length === 0)
     return <Description>No submissions yet</Description>
   return (
