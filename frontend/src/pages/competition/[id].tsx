@@ -2,11 +2,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+import { useAccount } from 'wagmi'
 
 import { Footer } from '@/components/Footer'
 import { Nav } from '@/components/Nav'
 import SubmissionsTable from '@/components/SubmissionsTable'
 import {
+  Button,
   CustomContainer,
   Description,
   Layout,
@@ -19,12 +21,18 @@ import { hackathons } from '@/utils/data'
 
 const CompetitionDetail = () => {
   const router = useRouter()
+  const { address } = useAccount()
   const { id } = router.query
 
   const competition = useMemo(() => {
     if (!id) return
     return hackathons.filter((h) => h.slug === id)[0]
   }, [id])
+
+  const isAdmin = useMemo(
+    () => competition?.admin === address,
+    [competition, address]
+  )
 
   if (!competition) return <p>Loading...</p>
   return (
@@ -58,7 +66,17 @@ const CompetitionDetail = () => {
             </StyledDetail>
           </Row>
 
-          <Title>Submissions</Title>
+          <Row>
+            <Title>Submissions</Title>
+            {!isAdmin && (
+              <Link
+                href={`/submission/create?competition=${competition.id}`}
+                passHref
+              >
+                <Button>Submit your project</Button>
+              </Link>
+            )}
+          </Row>
           <SubmissionsTable proposalId={competition.id} />
         </CustomContainer>
 

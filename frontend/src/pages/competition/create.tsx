@@ -1,4 +1,3 @@
-// pages/competition.js
 import { useCallback, useMemo, useState } from 'react'
 import { useAsyncMemo } from 'use-async-memo'
 import { erc20ABI, sepolia, useAccount } from 'wagmi'
