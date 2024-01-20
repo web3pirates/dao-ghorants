@@ -102,12 +102,11 @@ const SubmissionView = () => {
         <Button onClick={analyzeRepo}>Analyze Repo</Button>
         <Description>{gptJudgement}</Description>
 
-        <Button
-          onClick={awardPrize}
-          disabled={!isProposalAdmin || isTransacting}
-        >
-          Accept and Award Prize
-        </Button>
+        {isProposalAdmin && (
+          <Button onClick={awardPrize} disabled={isTransacting}>
+            Accept and Award Prize
+          </Button>
+        )}
       </Layout>
     </>
   )
