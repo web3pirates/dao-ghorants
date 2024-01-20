@@ -6,13 +6,13 @@ import { submissions } from '@/utils/data'
 import { Button, StyledTable } from './atoms'
 
 interface Props {
-  slug: string
+  proposalId: number
 }
 const SubmissionsTable = (props: Props) => {
-  const { slug } = props
+  const { proposalId } = props
   const router = useRouter()
 
-  const projects = submissions.filter((s) => s.slug === slug)
+  const projects = submissions.filter((s) => s.proposalId === proposalId)
 
   return (
     <StyledTable>

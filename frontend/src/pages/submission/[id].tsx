@@ -27,7 +27,7 @@ const SubmissionView = () => {
   const { id } = router.query
 
   const submission = submissions.find((s) => s.id === id)
-  const proposal = hackathons.find((h) => h.slug === submission?.proposalId)
+  const proposal = hackathons.find((h) => h.id === submission?.proposalId)
 
   const isProposalAdmin = useMemo(
     () => address === proposal?.admin,
@@ -43,7 +43,7 @@ const SubmissionView = () => {
       address: PROPOSAL_MANAGER_ADDRESS,
       chainId: sepolia.id,
       functionName: 'acceptProposal',
-      args: [submission.address, submission.id],
+      args: [submission.address, proposal.id],
     })
 
     // add loader for transaction

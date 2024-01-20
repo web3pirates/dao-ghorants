@@ -184,7 +184,7 @@ const CreateCompetitionPage = () => {
               Approve GHO
             </Button>
           )}
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={shouldApprove || isLoading}>
             Submit
           </Button>
         </Form>

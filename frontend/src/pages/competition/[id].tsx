@@ -59,7 +59,7 @@ const CompetitionDetail = () => {
           </Row>
 
           <Title>Submissions</Title>
-          <SubmissionsTable slug={id as string} />
+          <SubmissionsTable proposalId={competition.id} />
         </CustomContainer>
 
         <Footer />

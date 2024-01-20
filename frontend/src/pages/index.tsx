@@ -48,12 +48,12 @@ export default function Home() {
           </p>
           <p>
             Our tool leverages <b>advanced analytics</b> and <b>AI</b> to
-            provide a fair and comprehensive evaluation of participants'{' '}
+            provide a fair and comprehensive evaluation of participants&apos;{' '}
             <b>Github repositories</b>, ensuring that recognition is based on
             merit and contribution quality.
           </p>
 
-          <Link href="/create-competition" passHref>
+          <Link href="/competition/create" passHref>
             <CreateButton>Create Competition</CreateButton>
           </Link>
 

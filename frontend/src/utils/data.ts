@@ -1,5 +1,6 @@
 export const hackathons = [
   {
+    id: 1,
     imageUrl: '/images/hackathon1.png',
     title: 'Global Code Challenge',
     description:
@@ -8,10 +9,10 @@ export const hackathons = [
     startDate: '2024-03-15',
     endDate: '2024-03-17',
     prize: '10000 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '0x9a9D075A63BE26e0a2D905E49715A26B4163396c',
   },
   {
+    id: 2,
     imageUrl: '/images/hackathon2.png',
     title: 'Innovators Hackfest',
     description:
@@ -20,10 +21,10 @@ export const hackathons = [
     startDate: '2024-04-22',
     endDate: '2024-04-24',
     prize: '7500 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '',
   },
   {
+    id: 3,
     imageUrl: '/images/hackathon3.png',
     title: 'AI Revolution Contest',
     description:
@@ -32,10 +33,10 @@ export const hackathons = [
     startDate: '2024-05-05',
     endDate: '2024-05-07',
     prize: '12000 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '',
   },
   {
+    id: 4,
     imageUrl: '/images/hackathon4.png',
     title: 'Green Tech Marathon',
     description:
@@ -44,10 +45,10 @@ export const hackathons = [
     startDate: '2024-06-18',
     endDate: '2024-06-20',
     prize: '8000 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '',
   },
   {
+    id: 5,
     imageUrl: '/images/hackathon5.png',
     title: 'Data Science Sprint',
     description:
@@ -56,10 +57,10 @@ export const hackathons = [
     startDate: '2024-07-12',
     endDate: '2024-07-14',
     prize: '9000 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '',
   },
   {
+    id: 6,
     imageUrl: '/images/hackathon6.png',
     title: 'Blockchain Battle',
     description:
@@ -68,7 +69,6 @@ export const hackathons = [
     startDate: '2024-08-09',
     endDate: '2024-08-11',
     prize: '11000 USD',
-    githubUrl: 'https://github.com/example-repo', // TODO: Replace with actual GitHub URL
     admin: '',
   },
 ]
@@ -77,25 +77,22 @@ export const submissions = [
   {
     id: 'abc',
     title: 'Awesome Project',
-    slug: 'global-code-challenge',
     address: '0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c',
     githubUrl: 'https://github.com/example',
-    proposalId: 'global-code-challenge',
+    proposalId: 1,
   },
   {
     id: 'sdfo',
     title: 'My first hackathon project',
-    slug: 'global-code-challenge',
     address: '0x8d3e029c4c5a0b54d5dc17e0aadc383d2db43b0a',
     githubUrl: 'https://github.com/example',
-    proposalId: 'global-code-challenge',
+    proposalId: 1,
   },
   {
     id: 'eos',
     title: 'DAOScore',
-    slug: 'global-code-challenge',
     address: '0x4d5dc17e0aadc383d2db43b0a0d3e029c4c5a0b5',
     githubUrl: 'https://github.com/example',
-    proposalId: 'global-code-challenge',
+    proposalId: 1,
   },
 ]
