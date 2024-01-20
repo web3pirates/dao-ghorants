@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import { Competition, Submission } from "./models";
 import dotenv from "dotenv";
+import { fetchRepoInfo } from "./utils/github";
 dotenv.config();
 
 const app = express();
@@ -52,4 +53,11 @@ app.get("/competitions/:id", async (req, res) => {
 app.get("/competitions/:id/submissions", async (req, res) => {
   const submissions = await Submission.find({ competitionId: req.params.id });
   res.send(submissions);
+});
+
+app.get("/repoinfo/:owner/:repo", async (req, res) => {
+  const { owner, repo } = req.params;
+  const repoInfo = await fetchRepoInfo(owner, repo);
+
+  res.send(repoInfo);
 });
