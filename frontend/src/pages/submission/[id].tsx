@@ -93,10 +93,6 @@ const SubmissionView = () => {
         <Nav />
 
         <CustomContainer as="main">
-          <Link href="/">
-            <p>Back to competitions</p>
-          </Link>
-
           <Title>{submission.title}</Title>
         </CustomContainer>
         <Button

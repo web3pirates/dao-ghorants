@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAsyncMemo } from 'use-async-memo'
@@ -23,10 +24,12 @@ export default function Home() {
 
   const competitions = useAsyncMemo(async () => await fetchCompetitions(), [])
 
+  console.log(competitions)
+
   return (
     <>
       <Head>
-        <title>DAO GHO Grants</title>
+        <title>GHO Grants</title>
         <meta
           name="description"
           content="Revolutionizing hackathon prize distribution."
@@ -38,50 +41,56 @@ export default function Home() {
         <Nav />
 
         <CustomContainer as="main">
-          <h1>DAO GHO Grants</h1>
+          <h1>💰GHO Grants</h1>
           <p>
-            The cutting-edge solution designed to revolutionize the way
-            hackathon prizes are distributed.
+            Streamline grant processes by enabling DAOs to effortlessly create,
+            evaluate, and distribute funds.
           </p>
           <p>
-            Our tool leverages <b>advanced analytics</b> and <b>AI</b> to
-            provide a fair and comprehensive evaluation of participants&apos;{' '}
-            <b>Github repositories</b>, ensuring that recognition is based on
-            merit and contribution quality.
+            Automate grant submissions, facilitate transparent evaluation
+            through smart contract-based criteria, and execute seamless fund
+            distributions upon approval, enhancing efficiency and transparency
+            in decentralized decision-making.
           </p>
 
           <Link href="/competition/create" passHref>
-            <CreateButton>Create Competition</CreateButton>
+            <CreateButton>Create Grant</CreateButton>
           </Link>
 
           <p></p>
           <br />
 
-          <Title>Search your favourite competition</Title>
-          <HackathonsContainer>
-            {!!competitions &&
-              competitions.map((competition, index) => (
-                <HackathonBox
-                  key={index}
-                  onClick={() => router.push(`competition/${competition.id}`)}
-                >
-                  <img
-                    src={competition.imageUrl}
-                    alt={`Hackathon ${index + 1}`}
-                  />
-                  <h3>{competition.title}</h3>
-                  <p>
-                    Start Date: {new Date(competition.startDate).toDateString()}
-                  </p>
-                  <p>
-                    End Date: {new Date(competition.endDate).toDateString()}
-                  </p>
-                  <p>Prize: {competition.prize} GHO</p>
-                </HackathonBox>
-              ))}
-          </HackathonsContainer>
+          {competitions && competitions.length > 0 && (
+            <>
+              {/* <Title>Search your favourite competition</Title> */}
+              <HackathonsContainer>
+                {!!competitions &&
+                  competitions.map((competition, index) => (
+                    <HackathonBox
+                      key={index}
+                      onClick={() =>
+                        router.push(`competition/${competition.id}`)
+                      }
+                    >
+                      <img
+                        src={competition.imageUrl}
+                        alt={`Hackathon ${index + 1}`}
+                      />
+                      <h3>{competition.title}</h3>
+                      <p>
+                        Start Date:{' '}
+                        {new Date(competition.startDate).toDateString()}
+                      </p>
+                      <p>
+                        End Date: {new Date(competition.endDate).toDateString()}
+                      </p>
+                      <p>Prize: {competition.prize} GHO</p>
+                    </HackathonBox>
+                  ))}
+              </HackathonsContainer>
+            </>
+          )}
         </CustomContainer>
-
         <Footer />
       </Layout>
     </>

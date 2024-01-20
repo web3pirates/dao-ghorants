@@ -11,7 +11,7 @@ const openai = new OpenAI({
 
 export function useOpenAI() {
   async function judgeRepo(prompt: string, githubUrl: string) {
-    return 'Test message to avoid calling gpt'
+    // return 'Test message to avoid calling gpt'
 
     const completion = await openai.chat.completions.create({
       messages: [
