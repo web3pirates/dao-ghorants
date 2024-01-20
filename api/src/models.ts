@@ -36,21 +36,20 @@ const competitionSchema: Schema = new Schema({
 
 const submissionSchema: Schema = new Schema({
   proposalId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true,
-    ref: "Competition",
   },
   id: { type: String, required: true },
-  title: { type: String, required: true },
+  name: { type: String, required: true },
   address: { type: String, required: true },
   githubUrl: { type: String, required: true },
 });
 
 export const Competition = mongoose.model<ICompetition>(
   "Competition",
-  competitionSchema
+  competitionSchema,
 );
 export const Submission = mongoose.model<ISubmission>(
   "Submission",
-  submissionSchema
+  submissionSchema,
 );

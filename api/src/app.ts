@@ -8,6 +8,9 @@ dotenv.config();
 
 const app = express();
 
+import cors from "cors";
+
+app.use(cors());
 app.use(bodyParser.json());
 
 const mongoUri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_OPTIONS}`;

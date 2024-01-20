@@ -15,6 +15,7 @@ import {
   Layout,
   Title,
 } from '@/components/atoms'
+import { http } from '@/utils/fetch'
 
 // Page component
 const CreateSubmissionPage = () => {
@@ -51,6 +52,17 @@ const CreateSubmissionPage = () => {
     console.log('Form Data:', formData)
     // Handle form submission logic here
     setIsLoading(true)
+
+    try {
+      await http({
+        method: 'POST',
+        form: formData,
+        json: true,
+        url: '/submissions',
+      })
+    } catch (e) {
+      console.error(e)
+    }
 
     //save submission to DB
     setIsLoading(false)
