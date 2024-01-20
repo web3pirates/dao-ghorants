@@ -58,10 +58,12 @@ const CompetitionDetail = () => {
           <Description>{competition.description}</Description>
           <Row>
             <StyledDetail>
-              <span>Starts at:</span> {competition.startDate}
+              <span>Starts at:</span>{' '}
+              {new Date(competition.startDate).toDateString()}
             </StyledDetail>
             <StyledDetail>
-              <span>Ends at:</span> {competition.endDate}
+              <span>Ends at:</span>{' '}
+              {new Date(competition.endDate).toDateString()}
             </StyledDetail>
             <StyledDetail>
               <span>Prize:</span> {competition.prize} GHO
