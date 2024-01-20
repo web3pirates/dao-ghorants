@@ -13,6 +13,7 @@ import {
   Input,
   Label,
   Layout,
+  TextArea,
   Title,
 } from '@/components/atoms'
 import { http } from '@/utils/fetch'
@@ -23,6 +24,7 @@ const CreateSubmissionPage = () => {
     id: uuidv4(),
     title: '',
     address: '',
+    description: '',
     githubUrl: '',
     proposalId: 0,
   })
@@ -90,6 +92,17 @@ const CreateSubmissionPage = () => {
               placeholder="Enter project name"
               value={formData.title}
               onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="title">Describe your project:</Label>
+            <TextArea
+              id="description"
+              name="description"
+              placeholder="Enter submission description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={5}
             />
           </FormGroup>
           <FormGroup>

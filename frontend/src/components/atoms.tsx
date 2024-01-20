@@ -194,3 +194,13 @@ export const StyledTable = styled.table`
     background-color: #f1f1f1;
   }
 `
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+`
