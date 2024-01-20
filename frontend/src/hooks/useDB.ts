@@ -56,7 +56,7 @@ export function useDB() {
         method: 'GET',
         json: true,
         form: '',
-        url: `/submission/${submissionId}`,
+        url: `/submissions/${submissionId}`,
       })
     } catch (e) {
       console.error(e)
