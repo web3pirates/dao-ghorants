@@ -18,9 +18,10 @@ export function useOpenAI() {
         {
           role: 'system',
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}". 
-          You need to judge the result which can be found in the github repo at the url: "${githubUrl}" based on if all the requirements above were satisfied.
-          Take in consideration that the project should also be functionally complete and generally reliable.
-          Please respond with a couple of sentences at most.`,
+          You need to judge the result which can be found in the github repo at the url: "${githubUrl}".
+          You must answer with a an overview of the project in relation to the requirements and reliability. 
+          You MUST express a judgement. 
+          Please keep the answer at most 4 sentences.`,
         },
       ],
       model: 'gpt-3.5-turbo',
