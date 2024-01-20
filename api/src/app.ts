@@ -48,7 +48,7 @@ app.get("/competitions", async (req, res) => {
 
 // Endpoint to retrieve a competition by ID
 app.get("/competitions/:id", async (req, res) => {
-  const competition = await Competition.findById(req.params.id);
+  const competition = await Competition.find({ id: req.params.id });
   res.send(competition);
 });
 
@@ -56,6 +56,12 @@ app.get("/competitions/:id", async (req, res) => {
 app.get("/competitions/:id/submissions", async (req, res) => {
   const submissions = await Submission.find({ competitionId: req.params.id });
   res.send(submissions);
+});
+
+// Endpoint to retrieve a submission by ID
+app.get("/submissions/:id", async (req, res) => {
+  const submission = await Submission.find({ id: req.params.id });
+  res.send(submission);
 });
 
 app.get("/repoinfo/:owner/:repo", async (req, res) => {

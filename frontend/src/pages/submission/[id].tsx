@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo, useState } from 'react'
+import { useAsyncMemo } from 'use-async-memo'
 import { sepolia, useAccount } from 'wagmi'
 import { waitForTransaction, writeContract } from 'wagmi/actions'
 
@@ -14,9 +15,9 @@ import {
   Layout,
   Title,
 } from '@/components/atoms'
+import { useDB } from '@/hooks/useDB'
 import { useOpenAI } from '@/hooks/useOpenAI'
 import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
-import { hackathons, submissions } from '@/utils/data'
 
 const SubmissionView = () => {
   const [gptJudgement, setGptJudgement] = useState<string | null>(null)
@@ -24,10 +25,18 @@ const SubmissionView = () => {
   const router = useRouter()
   const { judgeRepo } = useOpenAI()
   const { address } = useAccount()
+  const { fetchSubmission, fetchCompetition } = useDB()
   const { id } = router.query
 
-  const submission = submissions.find((s) => s.id === id)
-  const proposal = hackathons.find((h) => h.id === submission?.proposalId)
+  const submission = useAsyncMemo(async () => {
+    if (!id) return
+    return await fetchSubmission(id as string)
+  }, [router.query])
+
+  const proposal = useAsyncMemo(async () => {
+    if (!submission) return
+    return await fetchCompetition(submission.proposalId)
+  }, [submission])
 
   const isProposalAdmin = useMemo(
     () => address === proposal?.admin,

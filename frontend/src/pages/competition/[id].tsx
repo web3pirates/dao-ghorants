@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+import { useAsyncMemo } from 'use-async-memo'
 import { useAccount } from 'wagmi'
 
 import { Footer } from '@/components/Footer'
@@ -17,16 +18,17 @@ import {
   StyledImage,
   Title,
 } from '@/components/atoms'
-import { hackathons } from '@/utils/data'
+import { useDB } from '@/hooks/useDB'
 
 const CompetitionDetail = () => {
   const router = useRouter()
   const { address } = useAccount()
+  const { fetchCompetition } = useDB()
   const { id } = router.query
 
-  const competition = useMemo(() => {
+  const competition = useAsyncMemo(async () => {
     if (!id) return
-    return hackathons.filter((h) => h.id === Number(id))[0]
+    return await fetchCompetition(Number(id))
   }, [id])
 
   const isAdmin = useMemo(
