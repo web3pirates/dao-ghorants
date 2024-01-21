@@ -14,7 +14,7 @@ export default function Login() {
   const router = useRouter()
 
   useEffect(() => {
-    if (isLoggedIn) router.push(`/competition/1`)
+    if (isLoggedIn) router.push(`/competition/65abdb44f987405f6ae76158`)
   }, [router, isLoggedIn])
 
   useEffect(() => {
@@ -40,6 +40,7 @@ export default function Login() {
           return response.json()
         })
         .then((data) => {
+          console.log({ data })
           dispatch({
             type: 'LOGIN',
             payload: { user: data, isLoggedIn: true },

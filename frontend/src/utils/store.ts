@@ -18,7 +18,7 @@ export const initialState: State = {
   user: null,
   redirect_uri: 'http://localhost:3000/login',
   proxy_url:
-    'https://c71a-2001-b07-645f-3c5-94e0-9217-8725-a3e5.ngrok-free.app/logingithub', //@dev change this with your api ngroked
+    'https://df25-2001-b07-6464-31f4-f437-16c5-b88f-41e0.ngrok-free.app/logingithub', //@dev change this with your api ngroked
 }
 
 export const { Provider: SharedStateProvider, useTracked: useSharedState } =
