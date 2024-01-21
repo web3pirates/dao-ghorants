@@ -37,6 +37,8 @@ To explore and contribute to 💰GHO Grants, follow these steps:
    npm start
    ```
 
+Project available at: [https://dao-ghorants.vercel.app/](https://dao-ghorants.vercel.app/)
+
 ## Tech Stack for DAO-GHO Prizes
 
 ### Technologies Used:
