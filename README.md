@@ -83,12 +83,12 @@ To explore and contribute to DAO-Ghorants, follow these steps:
 
 ![DAO-Ghorants Flowchart](ghogrants.drawio.png)
 
-### Future Considerations:
+### Future Improvements:
 
+- Add ZK proofs to ensure that the repository analysis is always conducted with the same procedure. This provides trust and fairness to the entire process.
+- Integrate new GHO facilitators as collateral for GHO distribution: this could be useful as more DAOs/protocols get approved as facilitators to make payments easier.
 - Continuous refinement of ChatGPT-based evaluation.
 - Ongoing improvements to the user interface for an intuitive grant creation process.
-- Adding ZK proofs for enhanced privacy and security.
-- Delegate DAO funds delegation to enhance GHO capabilities of making capital usage more efficient.
 
 ## Contributing
 
