@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useAsyncMemo } from 'use-async-memo'
 import { v4 as uuidv4 } from 'uuid'
 import { useAccount } from 'wagmi'
 
@@ -13,19 +14,27 @@ import {
   Input,
   Label,
   Layout,
+  TextArea,
   Title,
 } from '@/components/atoms'
+import { useGithub } from '@/hooks/useGithub'
 import { http } from '@/utils/fetch'
+import { useSharedState } from '@/utils/store'
 
 // Page component
 const CreateSubmissionPage = () => {
+  const [user] = useSharedState()
+  const [repoSelected, setRepoSelected] = useState('')
+  const { fetchUserRepos } = useGithub()
   const [formData, setFormData] = useState({
     id: uuidv4(),
     title: '',
     address: '',
+    description: '',
     githubUrl: '',
-    proposalId: 0,
+    proposalId: '',
   })
+
   const [isLoading, setIsLoading] = useState(false)
 
   const { address } = useAccount()
@@ -39,11 +48,17 @@ const CreateSubmissionPage = () => {
     }))
   }
 
+  const userReposFetched = useAsyncMemo(async () => {
+    const res = await fetchUserRepos(user.user.login)
+
+    return res
+  }, [user])
+
   useEffect(() => {
     setFormData((prev) => ({
       ...prev,
       address: address || '',
-      proposalId: Number(router.query.competition),
+      proposalId: router.query.competition as string,
     }))
   }, [address, router.query])
 
@@ -65,7 +80,6 @@ const CreateSubmissionPage = () => {
     }
     setIsLoading(false)
   }
-
   return (
     <Layout>
       <Nav />
@@ -74,13 +88,53 @@ const CreateSubmissionPage = () => {
         as="main"
         style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
       >
-        <Title>Submit your project</Title>
+        <Title>Submit your work</Title>
         <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Submit your work to participate to the competition. You can submit
+          multiple times.
         </Description>
 
         <Form onSubmit={handleSubmit}>
+          {userReposFetched && (
+            <select
+              name="select"
+              onChange={(e) => {
+                console.log('inside change')
+                console.log(
+                  userReposFetched.find((repo) => {
+                    return repo.fullName === e.target.value
+                  }).url
+                )
+                setRepoSelected(e.target.value)
+
+                setFormData((prev) => {
+                  const repo = userReposFetched.find((repo) => {
+                    return repo.fullName === e.target.value
+                  })
+                  return {
+                    ...prev,
+                    githubUrl: repo.url,
+                    description: repo.description,
+                    title: repo.name,
+                  }
+                })
+              }}
+              style={{ color: 'black', marginBottom: '1rem' }}
+            >
+              {userReposFetched.map(function (repo) {
+                return (
+                  <option
+                    value={repo.fullName}
+                    key={repo.id}
+                    selected={repoSelected === repo.FullName}
+                    style={{ color: 'black' }}
+                  >
+                    {repo.fullName}
+                  </option>
+                )
+              })}
+            </select>
+          )}
           <FormGroup>
             <Label htmlFor="title">Project Name:</Label>
             <Input
@@ -90,6 +144,17 @@ const CreateSubmissionPage = () => {
               placeholder="Enter project name"
               value={formData.title}
               onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="title">Describe your project:</Label>
+            <TextArea
+              id="description"
+              name="description"
+              placeholder="Enter submission description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={5}
             />
           </FormGroup>
           <FormGroup>

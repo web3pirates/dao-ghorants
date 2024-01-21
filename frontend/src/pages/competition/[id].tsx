@@ -12,6 +12,7 @@ import {
   Button,
   CustomContainer,
   Description,
+  LabelCard,
   Layout,
   Row,
   StyledDetail,
@@ -30,13 +31,32 @@ const CompetitionDetail = () => {
 
   const competition = useAsyncMemo(async () => {
     if (!id) return
-    return await fetchCompetition(Number(id))
+    return await fetchCompetition(id as string)
   }, [id])
 
   const isAdmin = useMemo(
     () => competition?.admin === address,
     [competition, address]
   )
+
+  const getBackgroundColor = (typeOfGrant: string) => {
+    switch (typeOfGrant) {
+      case 'project':
+        return { backgroundColor: '#00b300' }
+      case 'bounty':
+        return { backgroundColor: '#ffcc00' } // Choose your color for bounty
+      case 'social':
+        return { backgroundColor: '#ff0000' }
+      case 'translation':
+        return { backgroundColor: '#9900cc' } // Choose your color for translation
+      case 'documentation':
+        return { backgroundColor: '#0000ff' }
+      case 'hackathon':
+        return { backgroundColor: '#ff00ff' }
+      default:
+        return { backgroundColor: '#e0e0e0' } // Default color if none of the cases match
+    }
+  }
 
   if (!competition) return <p>Loading...</p>
   return (
@@ -57,7 +77,20 @@ const CompetitionDetail = () => {
           <StyledImage src={competition.imageUrl} alt={competition.title} />
 
           <Title>{competition.title}</Title>
-          <Description>{competition.description}</Description>
+          <LabelCard
+            style={getBackgroundColor(competition.typeOfGrant || 'project')}
+          >
+            {competition.typeOfGrant || 'project'}
+          </LabelCard>
+          <Description>
+            Submitted by: <b>{competition.admin}</b>
+          </Description>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: competition.description.replace(/\\n/g, '<br>'),
+            }}
+          />
+
           <Row>
             <StyledDetail>
               <span>Starts at:</span>{' '}
@@ -76,17 +109,17 @@ const CompetitionDetail = () => {
           {!isAdmin &&
             (isLoggedIn ? (
               <Link
-                href={`/submission/create?competition=${competition.id}`}
+                href={`/submission/create?competition=${competition._id}`}
                 passHref
               >
                 <Button>Submit your project</Button>
               </Link>
             ) : (
-              <Link href={`/login`} passHref>
+              <Link href={`/login`} passHref style={{ width: 'fit-content' }}>
                 <Button>Login with GitHub</Button>
               </Link>
             ))}
-          <SubmissionsTable proposalId={competition.id} />
+          <SubmissionsTable proposalId={competition._id} />
         </CustomContainer>
 
         <Footer />

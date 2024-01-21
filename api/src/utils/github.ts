@@ -93,3 +93,17 @@ export const fetchRepoInfo = async (owner: string, repo: string) => {
 
   return { repoInfoFormatted, repoCollaborator };
 };
+
+export const fetchUserRepos = async (userId: string) => {
+  const reposJson = await fetch(`https://api.github.com/users/${userId}/repos`);
+  const repos = await reposJson.json();
+
+  const reposFormatted = repos.map((repo: any) => ({
+    name: repo.name,
+    fullName: repo.full_name,
+    private: repo.private,
+    description: repo.description,
+    url: repo.html_url,
+  }));
+  return reposFormatted;
+};

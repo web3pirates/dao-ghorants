@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { mq } from '@/styles/breakpoints'
 
@@ -21,6 +21,35 @@ export const Layout = styled.div`
   }
 `
 
+export const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`
+
+export const LabelCard = styled.div`
+  margin-bottom: 5px;
+  width: fit-content;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0.5rem;
+  text-transform: capitalize;
+`
+
+export const TinyLabelCard = styled.div`
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  width: fit-content;
+  color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-weight: bold;
+  padding: 0.3rem;
+  text-transform: capitalize;
+`
+
 export const Container = styled.div`
   width: 100%;
   max-width: 80rem;
@@ -38,12 +67,6 @@ export const Form = styled.form`
 
 export const FormGroup = styled.div`
   margin-bottom: 15px;
-`
-
-export const Label = styled.label`
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
 `
 
 export const Input = styled.input`
@@ -109,6 +132,21 @@ export const Title = styled.h1`
 export const Description = styled.p`
   text-align: left;
   color: black;
+`
+
+export const GPTDescription = styled.div`
+  background-color: #f3f4f6; /* Light grey background */
+  border: 1px solid #e5e7eb; /* Slightly darker border for depth */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Spacing inside the box */
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+  color: #1f2937; /* Dark grey text for readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A clean, readable font */
+  text-align: left; /* Align text to the left */
+  font-size: 1rem; /* Standard font size */
+  line-height: 1.5; /* Spacing between lines */
 `
 
 export const HackathonBox = styled.div`
@@ -193,4 +231,43 @@ export const StyledTable = styled.table`
   tr:hover {
     background-color: #f1f1f1;
   }
+`
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+`
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+`
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+// Styled component for the Loader
+export const Loader = styled.div`
+  border: 4px solid #f3f4f6; /* Light grey border */
+  border-top: 4px solid #3498db; /* Blue color for the spinner */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: ${rotate} 2s linear infinite;
+  display: inline-block;
 `

@@ -7,17 +7,50 @@ import { useDB } from '@/hooks/useDB'
 import { Button, Description, StyledTable } from './atoms'
 
 interface Props {
-  proposalId: number
+  proposalId: string
 }
 const SubmissionsTable = (props: Props) => {
   const { proposalId } = props
   const router = useRouter()
-  const { fetchSubmissions } = useDB()
+  const { fetchJudgements, fetchSubmissions } = useDB()
 
   const submissions = useAsyncMemo(
     async () => await fetchSubmissions(proposalId),
     [proposalId]
   )
+
+  const judgements = useAsyncMemo(async () => {
+    if (submissions && submissions[0]) {
+      return await fetchJudgements()
+    }
+    // Handle the case where submissions or submissions[0] is undefined
+    return null
+  }, [submissions])
+
+  console.log(JSON.stringify(judgements))
+
+  type JudgementType = {
+    _id: string
+    proposalId: string
+    submissionId: string
+    chatGptScore: number
+
+    // Add other properties as needed
+  }
+
+  const matchJudgement = (submissionId: string): JudgementType | null => {
+    if (judgements) {
+      const foundJudgement = judgements.find(
+        (judgement: JudgementType) => judgement.submissionId === submissionId
+      )
+
+      return foundJudgement || null
+    }
+
+    return null
+  }
+
+  console.log('judgements', judgements)
 
   if (submissions?.length === 0)
     return <Description>No submissions yet</Description>
@@ -27,6 +60,7 @@ const SubmissionsTable = (props: Props) => {
         <tr>
           <th>Title</th>
           <th>Address</th>
+          <th>Score</th>
           <th>Details</th>
         </tr>
       </thead>
@@ -36,6 +70,7 @@ const SubmissionsTable = (props: Props) => {
             <tr key={index}>
               <td>{submission.title}</td>
               <td>{submission.address}</td>
+              <td>{matchJudgement(submission.id)?.chatGptScore}</td>
               <td>
                 <Button
                   onClick={() => router.push(`/submission/${submission.id}`)}

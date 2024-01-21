@@ -17,7 +17,7 @@ export function useDB() {
     return res
   }
 
-  async function fetchCompetition(id: number): Promise<any> {
+  async function fetchCompetition(id: string): Promise<any> {
     let res
     try {
       res = await http({
@@ -30,10 +30,10 @@ export function useDB() {
       console.error(e)
     }
 
-    return res[0]
+    return res
   }
 
-  async function fetchSubmissions(competitionId: number): Promise<any[]> {
+  async function fetchSubmissions(competitionId: string): Promise<any[]> {
     let res
     try {
       res = await http({
@@ -65,10 +65,44 @@ export function useDB() {
     return res[0]
   }
 
+  async function fetchJudgement(judgementId: string): Promise<any> {
+    let res
+    try {
+      res = await http({
+        method: 'GET',
+        json: true,
+        form: '',
+        url: `/judgements/${judgementId}`,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
+    return res
+  }
+
+  async function fetchJudgements(): Promise<any> {
+    let res
+    try {
+      res = await http({
+        method: 'GET',
+        json: true,
+        form: '',
+        url: `/judgements`,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
+    return res
+  }
+
   return {
     fetchCompetition,
     fetchCompetitions,
     fetchSubmission,
     fetchSubmissions,
+    fetchJudgement,
+    fetchJudgements,
   }
 }
