@@ -7,7 +7,7 @@ import { useDB } from '@/hooks/useDB'
 import { Button, Description, StyledTable } from './atoms'
 
 interface Props {
-  proposalId: number
+  proposalId: string
 }
 const SubmissionsTable = (props: Props) => {
   const { proposalId } = props

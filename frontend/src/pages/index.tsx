@@ -60,14 +60,13 @@ export default function Home() {
 
           {competitions && competitions.length > 0 && (
             <>
-              {/* <Title>Search your favourite competition</Title> */}
               <HackathonsContainer>
                 {!!competitions &&
                   competitions.map((competition, index) => (
                     <HackathonBox
                       key={index}
                       onClick={() =>
-                        router.push(`competition/${competition.id}`)
+                        router.push(`competition/${competition._id}`)
                       }
                     >
                       <img
