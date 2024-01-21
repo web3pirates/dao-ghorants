@@ -5,7 +5,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import { Competition, Judgement, Submission } from "./models";
-import { fetchRepoInfo } from "./utils/github";
+import { fetchUserRepos } from "./utils/github";
 
 const { ObjectId } = require("mongodb"); // Import ObjectId from MongoDB
 
@@ -127,6 +127,12 @@ app.get("/repoinfo/:owner/:repo", async (req, res) => {
 
   // res.send(repoInfo);
   res.send({ owner: "test", repo: "test" });
+});
+
+app.get("/userrepos/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const repoList = await fetchUserRepos(userId);
+  res.send(repoList);
 });
 
 // Endpoint to submit to a competition
