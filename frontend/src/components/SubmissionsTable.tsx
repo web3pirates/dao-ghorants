@@ -21,11 +21,34 @@ const SubmissionsTable = (props: Props) => {
 
   const judgements = useAsyncMemo(async () => {
     if (submissions && submissions[0]) {
-      return await fetchJudgements(submissions[0].id as string)
+      return await fetchJudgements()
     }
     // Handle the case where submissions or submissions[0] is undefined
     return null
   }, [submissions])
+
+  console.log(JSON.stringify(judgements))
+
+  type JudgementType = {
+    _id: string
+    proposalId: string
+    submissionId: string
+    chatGptScore: number
+
+    // Add other properties as needed
+  }
+
+  const matchJudgement = (submissionId: string): JudgementType | null => {
+    if (judgements) {
+      const foundJudgement = judgements.find(
+        (judgement: JudgementType) => judgement.submissionId === submissionId
+      )
+
+      return foundJudgement || null
+    }
+
+    return null
+  }
 
   console.log('judgements', judgements)
 
@@ -47,7 +70,7 @@ const SubmissionsTable = (props: Props) => {
             <tr key={index}>
               <td>{submission.title}</td>
               <td>{submission.address}</td>
-              <td>{submission.chatGptScore}</td>
+              <td>{matchJudgement(submission.id)?.chatGptScore}</td>
               <td>
                 <Button
                   onClick={() => router.push(`/submission/${submission.id}`)}

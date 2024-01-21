@@ -173,8 +173,7 @@ app.get('/judgements/:id', async (req, res) => {
 });
 
 // Endpoint to retrieve the judgements for a competition
-app.get('/judgements/:id/by-competition', async (req, res) => {
-  console.log('fetch judgements', req.params.id);
+app.get('/judgements', async (req, res) => {
   const judgements = await Judgement.find();
   res.send(judgements);
 });

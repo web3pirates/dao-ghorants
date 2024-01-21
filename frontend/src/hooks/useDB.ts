@@ -81,14 +81,14 @@ export function useDB() {
     return res
   }
 
-  async function fetchJudgements(proposalId: string): Promise<any> {
+  async function fetchJudgements(): Promise<any> {
     let res
     try {
       res = await http({
         method: 'GET',
         json: true,
         form: '',
-        url: `/judgements/${proposalId}/by-competition`,
+        url: `/judgements`,
       })
     } catch (e) {
       console.error(e)
