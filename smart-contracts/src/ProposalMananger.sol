@@ -37,6 +37,7 @@ contract ProposalManager {
             "Only proposer can accept a proposal"
         );
 
+        ghoToken.approve(address(this), proposal.amount);
         ghoToken.transferFrom(address(this), redeemer, proposal.amount);
 
         proposal.emitted = true;
