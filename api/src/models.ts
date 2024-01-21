@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 // Interface for the Competition model
 interface ICompetition extends Document {
@@ -50,7 +50,7 @@ const competitionSchema: Schema = new Schema(
     endDate: { type: Date, required: true },
     typeOfGrant: { type: String, required: true },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const submissionSchema: Schema = new Schema(
@@ -66,7 +66,7 @@ const submissionSchema: Schema = new Schema(
     githubUrl: { type: String, required: true },
     chatGptScore: { type: Number },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const judgementSchema: Schema = new Schema(
@@ -87,9 +87,18 @@ const judgementSchema: Schema = new Schema(
     chatGptJudgement: { type: String },
     chatGptScore: { type: Number },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-export const Competition = mongoose.model<ICompetition>('Competition', competitionSchema);
-export const Submission = mongoose.model<ISubmission>('Submission', submissionSchema);
-export const Judgement = mongoose.model<IJudgement>('Judgement', judgementSchema);
+export const Competition = mongoose.model<ICompetition>(
+  "Competition",
+  competitionSchema
+);
+export const Submission = mongoose.model<ISubmission>(
+  "Submission",
+  submissionSchema
+);
+export const Judgement = mongoose.model<IJudgement>(
+  "Judgement",
+  judgementSchema
+);

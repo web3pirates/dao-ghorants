@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useAsyncMemo } from 'use-async-memo'
 import { v4 as uuidv4 } from 'uuid'
 import { useAccount } from 'wagmi'
 
@@ -16,10 +17,15 @@ import {
   TextArea,
   Title,
 } from '@/components/atoms'
+import { useGithub } from '@/hooks/useGithub'
 import { http } from '@/utils/fetch'
+import { useSharedState } from '@/utils/store'
 
 // Page component
 const CreateSubmissionPage = () => {
+  const [user] = useSharedState()
+  const [repoSelected, setRepoSelected] = useState('')
+  const { fetchUserRepos } = useGithub()
   const [formData, setFormData] = useState({
     id: uuidv4(),
     title: '',
@@ -28,6 +34,7 @@ const CreateSubmissionPage = () => {
     githubUrl: '',
     proposalId: 0,
   })
+
   const [isLoading, setIsLoading] = useState(false)
 
   const { address } = useAccount()
@@ -40,6 +47,12 @@ const CreateSubmissionPage = () => {
       [name]: value,
     }))
   }
+
+  const userReposFetched = useAsyncMemo(async () => {
+    const res = await fetchUserRepos(user.user.login)
+
+    return res
+  }, [user])
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -67,7 +80,6 @@ const CreateSubmissionPage = () => {
     }
     setIsLoading(false)
   }
-
   return (
     <Layout>
       <Nav />
@@ -83,6 +95,45 @@ const CreateSubmissionPage = () => {
         </Description>
 
         <Form onSubmit={handleSubmit}>
+          {userReposFetched && (
+            <select
+              name="select"
+              onChange={(e) => {
+                console.log('inside change')
+                console.log(
+                  userReposFetched.find((repo) => {
+                    return repo.fullName === e.target.value
+                  }).url
+                )
+                setRepoSelected(e.target.value)
+
+                setFormData((prev) => {
+                  const repo = userReposFetched.find((repo) => {
+                    return repo.fullName === e.target.value
+                  })
+                  return {
+                    ...prev,
+                    githubUrl: repo.url,
+                    description: repo.description,
+                    title: repo.name,
+                  }
+                })
+              }}
+              style={{ color: 'black', marginBottom: '1rem' }}
+            >
+              {userReposFetched.map(function (repo) {
+                return (
+                  <option
+                    value={repo.fullName}
+                    selected={repoSelected === repo.FullName}
+                    style={{ color: 'black' }}
+                  >
+                    {repo.fullName}
+                  </option>
+                )
+              })}
+            </select>
+          )}
           <FormGroup>
             <Label htmlFor="title">Project Name:</Label>
             <Input

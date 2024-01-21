@@ -18,7 +18,24 @@ export function useGithub() {
     return res
   }
 
+  async function fetchUserRepos(userId: string): Promise<any[]> {
+    let res
+    try {
+      res = await http({
+        method: 'GET',
+        json: true,
+        form: '',
+        url: `/userrepos/${userId}`,
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
+    return res
+  }
+
   return {
     fetchRepoInfo,
+    fetchUserRepos,
   }
 }
