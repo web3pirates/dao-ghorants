@@ -27,7 +27,7 @@ const SubmissionsTable = (props: Props) => {
     return null
   }, [submissions])
 
-  console.log(JSON.stringify(judgements))
+  // console.log(JSON.stringify(judgements))
 
   type JudgementType = {
     _id: string
@@ -50,7 +50,7 @@ const SubmissionsTable = (props: Props) => {
     return null
   }
 
-  console.log('judgements', judgements)
+  // console.log('judgements', judgements)
 
   if (submissions?.length === 0)
     return <Description>No submissions yet</Description>
