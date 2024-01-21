@@ -288,7 +288,7 @@ const SubmissionView = () => {
                 {judgement.plagiarized !== undefined ? (
                   <GPTDescription>
                     <b>
-                      1. Is this a unique project? Does it have any
+                      0. Is this a unique project? Does it have any
                       similarities?
                     </b>
                     <br />
