@@ -27,7 +27,7 @@ export function Nav() {
   return (
     <Wrapper>
       <Title>
-        <a href="/">💰 GHO Grants</a>
+        <a href="/">💰GHO Grants</a>
       </Title>
       <div style={{ display: 'flex', gap: '10px' }}>
         {user && (

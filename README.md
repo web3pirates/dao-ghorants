@@ -1,6 +1,6 @@
-# DAO-Ghorants: Streamlining Transparent Grant Processes with ChatGPT
+# 💰GHO Grants: Streamlining Transparent Grant Processes with ChatGPT
 
-DAO-Ghorants is a project dedicated to enhancing the grant processes within Decentralized Autonomous Organizations (DAOs). By leveraging blockchain technology and incorporating ChatGPT, this platform allows DAOs to seamlessly create, evaluate, and distribute funds transparently.
+💰GHO Grants is a project dedicated to enhancing the grant processes within Decentralized Autonomous Organizations (DAOs). By leveraging blockchain technology and incorporating ChatGPT, this platform allows DAOs to seamlessly create, evaluate, and distribute funds transparently.
 
 ## Features
 
@@ -12,7 +12,7 @@ DAO-Ghorants is a project dedicated to enhancing the grant processes within Dece
 
 ## Getting Started
 
-To explore and contribute to DAO-Ghorants, follow these steps:
+To explore and contribute to 💰GHO Grants, follow these steps:
 
 1. Clone the repository:
 
@@ -81,7 +81,7 @@ To explore and contribute to DAO-Ghorants, follow these steps:
 
 ### Flow
 
-![DAO-Ghorants Flowchart](ghogrants.drawio.png)
+![💰GHO Grants Flowchart](ghogrants.drawio.png)
 
 ### Future Improvements:
 
@@ -92,11 +92,11 @@ To explore and contribute to DAO-Ghorants, follow these steps:
 
 ## Contributing
 
-If you are interested in contributing to DAO-Ghorants, please contact us.
+If you are interested in contributing to 💰GHO Grants, please contact us.
 
 ## Transparency and ChatGPT
 
-DAO-Ghorants is committed to transparency in the grant process. ChatGPT is integrated to streamline and enhance the evaluation process, providing clear and objective insights into proposals.
+💰GHO Grants is committed to transparency in the grant process. ChatGPT is integrated to streamline and enhance the evaluation process, providing clear and objective insights into proposals.
 
 ## Issues and Feedback
 
@@ -104,8 +104,8 @@ If you encounter any issues or have feedback, feel free to [open an issue](https
 
 ## License
 
-DAO-Ghorants is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for your own projects.
+💰GHO Grants is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for your own projects.
 
 ---
 
-**Visit the [DAO-Ghorants GitHub Repository](https://github.com/web3pirates/dao-ghorants) for more information.**
+**Visit the [💰GHO Grants GitHub Repository](https://github.com/web3pirates/dao-ghorants) for more information.**
