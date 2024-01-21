@@ -1,12 +1,12 @@
-# 💰 GHO Grants: Streamlining Grant Processes for DAOs
+# DAO-Ghorants: Streamlining Transparent Grant Processes with ChatGPT
 
-DAO-Ghorants is a project aimed at streamlining grant processes within Decentralized Autonomous Organizations (DAOs). By leveraging blockchain technology, this project enables DAOs to effortlessly create, evaluate, and distribute funds in a transparent and decentralized manner.
+DAO-Ghorants is a project dedicated to enhancing the grant processes within Decentralized Autonomous Organizations (DAOs). By leveraging blockchain technology and incorporating ChatGPT, this platform allows DAOs to seamlessly create, evaluate, and distribute funds transparently.
 
 ## Features
 
 - **Automated Grant Submissions:** Simplify the grant submission process by automating various steps, making it easy for applicants to submit proposals.
 
-- **Transparent Evaluation:** Utilize smart contract-based criteria to transparently evaluate grant proposals, ensuring a fair and decentralized decision-making process.
+- **Transparent Evaluation:** Utilize smart contract-based criteria and integrate ChatGPT for transparent evaluation of grant proposals. This ensures a fair and decentralized decision-making process.
 
 - **Efficient Fund Distributions:** Upon approval, execute seamless fund distributions using blockchain technology, enhancing efficiency and transparency in fund management.
 
@@ -39,7 +39,11 @@ To explore and contribute to DAO-Ghorants, follow these steps:
 
 ## Contributing
 
-If you are interested in contributing to DAO-Ghorants, please follow the guidelines outlined in [CONTRIBUTING.md](CONTRIBUTING.md).
+If you are interested in contributing to DAO-Ghorants, please contact us.
+
+## Transparency and ChatGPT
+
+DAO-Ghorants is committed to transparency in the grant process. ChatGPT is integrated to streamline and enhance the evaluation process, providing clear and objective insights into proposals.
 
 ## Issues and Feedback
 
