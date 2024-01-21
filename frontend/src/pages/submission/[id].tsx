@@ -5,6 +5,7 @@ import { use, useCallback, useMemo, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { SiOpenai } from 'react-icons/si'
 import { useAsyncMemo } from 'use-async-memo'
+import { v4 as uuidv4 } from 'uuid'
 import { sepolia, useAccount } from 'wagmi'
 import { waitForTransaction, writeContract } from 'wagmi/actions'
 
@@ -24,15 +25,17 @@ import { useDB } from '@/hooks/useDB'
 import { useGithub } from '@/hooks/useGithub'
 import { useOpenAI } from '@/hooks/useOpenAI'
 import { PROPOSAL_MANAGER_ADDRESS } from '@/utils/constants'
+import { http } from '@/utils/fetch'
 
 const SubmissionView = () => {
   const [gptJudgement, setGptJudgement] = useState<string | null>(null)
+  const [score, setScore] = useState<number | null>(null)
   const [isTransacting, setIsTransacting] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { judgeRepo } = useOpenAI()
+  const { giveScoreForRepo, judgeRepo } = useOpenAI()
   const { address } = useAccount()
-  const { fetchSubmission, fetchCompetition } = useDB()
+  const { fetchSubmission, fetchCompetition, fetchJudgement } = useDB()
   const { fetchRepoInfo } = useGithub()
   const { id } = router.query
 
@@ -41,23 +44,45 @@ const SubmissionView = () => {
     return await fetchSubmission(id as string)
   }, [router.query])
 
+  console.log('submission', submission)
+
+  const judgement = useAsyncMemo(async () => {
+    if (!id) return
+    return await fetchJudgement(id as string)
+  }, [router.query])
+
+  console.log('judgement', judgement)
+
   const repoInfo = useAsyncMemo(async () => {
     if (!submission) return
-    const owner = submission.githubUrl.split('/')[3]
+
+    console.log('submission', submission)
+
+    // const owner = submission.githubUrl.split('/')[3]
+    const owner = 'wagmi'
     return await fetchRepoInfo(owner, submission.githubUrl)
   }, [submission])
 
   console.log(repoInfo)
 
   const proposal = useAsyncMemo(async () => {
-    if (!submission) return
-    return await fetchCompetition(submission.proposalId)
+    try {
+      console.log('submission for PROPOSAL', submission)
+      if (!submission) return
+      return await fetchCompetition(submission.proposalId)
+    } catch (e) {
+      console.error(e)
+    }
   }, [submission])
+
+  console.log('proposal', proposal)
 
   const isProposalAdmin = useMemo(
     () => address === proposal?.admin,
     [address, proposal]
   )
+
+  const scoreIsGood = useMemo(() => score && score > 80, [score])
 
   const awardPrize = useCallback(async () => {
     if (!submission || !proposal || !isProposalAdmin) return
@@ -84,14 +109,55 @@ const SubmissionView = () => {
 
   const analyzeRepo = async () => {
     if (!submission || !proposal) return
+    if (address === null) {
+      alert('Please connect your wallet first!')
+      return
+    }
     setIsLoading(true)
     const judgement = await judgeRepo(
       proposal.description,
       submission.githubUrl
     )
 
+    const score = await giveScoreForRepo(
+      proposal.description,
+      submission.githubUrl
+    )
+
+    //   title: { type: String },
+    //   creativity: { type: Number },
+    //   useOfBlockchain: { type: Number },
+    //   impact: { type: Number },
+    //   collaboration: { type: Number },
+    //   reliability: { type: Number },
+    //   textJudgement: { type: String },
+    //   overallScore: { type: Number },
+    // });
+
+    const formData = {
+      proposalId: uuidv4(),
+      score,
+      judgement,
+      submissionId: submission.id,
+      judgeAddress: address,
+      chatGptJudgement: judgement,
+      chatGptScore: score,
+    }
+
+    try {
+      await http({
+        method: 'POST',
+        form: formData,
+        json: true,
+        url: '/judgements',
+      })
+    } catch (e) {
+      console.error(e)
+    }
+
     setIsLoading(false)
     setGptJudgement(judgement)
+    setScore(score)
   }
 
   if (!submission || !proposal)
@@ -112,7 +178,14 @@ const SubmissionView = () => {
 
         <CustomContainer as="main">
           <Title>{submission.title}</Title>
-          <p>Submitted by: {submission.address}</p>
+          <p
+            style={{
+              fontSize: '14px',
+              fontWeight: 'bold',
+            }}
+          >
+            Submitted by: {submission.address}
+          </p>
           <Description>{submission.description}</Description>
           <Row>
             <Button
@@ -159,12 +232,44 @@ const SubmissionView = () => {
               <div>
                 <Description>Repository has been analyzed! </Description>
                 <GPTDescription>{gptJudgement}</GPTDescription>
+                <GPTDescription>
+                  {' '}
+                  The repository has a score of {score} out of 100.
+                </GPTDescription>
+                {scoreIsGood ? (
+                  <GPTDescription> This is a good score! 🚀🚀 </GPTDescription>
+                ) : (
+                  <GPTDescription> This is a bad score! 😭</GPTDescription>
+                )}
               </div>
-            ) : null}
+            ) : !!judgement ? (
+              <div>
+                <Description>
+                  Repository has been analyzed on the {judgement.createdAt}{' '}
+                </Description>
+                <GPTDescription>{judgement.textJudgement}</GPTDescription>
+                <GPTDescription>
+                  {' '}
+                  The repository has a score of {judgement.overallScore} out of
+                  100.
+                </GPTDescription>
+                {judgement.overallScore > 80 ? (
+                  <GPTDescription> This is a good score! 🚀🚀 </GPTDescription>
+                ) : (
+                  <GPTDescription> This is a bad score! 😭</GPTDescription>
+                )}
+              </div>
+            ) : (
+              <div>
+                <Description>
+                  This repository has not been analyzed yet.
+                </Description>
+              </div>
+            )}
           </div>
         </CustomContainer>
 
-        {isProposalAdmin && (
+        {isProposalAdmin && score && scoreIsGood && (
           <Button onClick={awardPrize} disabled={isTransacting}>
             Accept and Award Prize
           </Button>

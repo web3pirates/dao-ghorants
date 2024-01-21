@@ -30,7 +30,7 @@ const CompetitionDetail = () => {
 
   const competition = useAsyncMemo(async () => {
     if (!id) return
-    return await fetchCompetition(Number(id))
+    return await fetchCompetition(id as string)
   }, [id])
 
   const isAdmin = useMemo(
@@ -76,7 +76,7 @@ const CompetitionDetail = () => {
           {!isAdmin &&
             (isLoggedIn ? (
               <Link
-                href={`/submission/create?competition=${competition.id}`}
+                href={`/submission/create?competition=${competition._id}`}
                 passHref
               >
                 <Button>Submit your project</Button>
@@ -86,7 +86,7 @@ const CompetitionDetail = () => {
                 <Button>Login with GitHub</Button>
               </Link>
             ))}
-          <SubmissionsTable proposalId={competition.id} />
+          <SubmissionsTable proposalId={competition._id} />
         </CustomContainer>
 
         <Footer />

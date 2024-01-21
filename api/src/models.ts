@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 // Interface for the Competition model
 interface ICompetition extends Document {
@@ -22,34 +22,70 @@ interface ISubmission extends Document {
   proposalId: mongoose.Types.ObjectId;
 }
 
-const competitionSchema: Schema = new Schema({
-  id: { type: Number, require: true },
-  imageUrl: { type: String, require: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  prize: { type: Number, required: true },
-  admin: { type: String, required: true },
-  startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
-});
+interface IJudgement extends Document {
+  id: string;
+  submissionId: string;
+  judgeAddress: string;
+  title: string;
+  creativity: number;
+  useOfBlockchain: number;
+  impact: number;
+  collaboration: number;
+  reliability: number;
+  chatGptJudgement: string;
+  chatGptScore: number;
+}
 
-const submissionSchema: Schema = new Schema({
-  proposalId: {
-    type: Number,
-    required: true,
+const competitionSchema: Schema = new Schema(
+  {
+    id: { type: String, require: true },
+    imageUrl: { type: String, require: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    prize: { type: Number, required: true },
+    admin: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
   },
-  id: { type: String, required: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  address: { type: String, required: true },
-  githubUrl: { type: String, required: true },
-});
+  { timestamps: true },
+);
 
-export const Competition = mongoose.model<ICompetition>(
-  "Competition",
-  competitionSchema
+const submissionSchema: Schema = new Schema(
+  {
+    proposalId: {
+      type: String,
+      required: true,
+    },
+    id: { type: String },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    address: { type: String, required: true },
+    githubUrl: { type: String, required: true },
+  },
+  { timestamps: true },
 );
-export const Submission = mongoose.model<ISubmission>(
-  "Submission",
-  submissionSchema
+
+const judgementSchema: Schema = new Schema(
+  {
+    proposalId: {
+      type: String,
+      required: true,
+    },
+    id: { type: String },
+    submissionId: { type: String },
+    judgeAddress: { type: String },
+    title: { type: String },
+    creativity: { type: Number },
+    useOfBlockchain: { type: Number },
+    impact: { type: Number },
+    collaboration: { type: Number },
+    reliability: { type: Number },
+    chatGptJudgement: { type: String },
+    chatGptScore: { type: Number },
+  },
+  { timestamps: true },
 );
+
+export const Competition = mongoose.model<ICompetition>('Competition', competitionSchema);
+export const Submission = mongoose.model<ISubmission>('Submission', submissionSchema);
+export const Judgement = mongoose.model<IJudgement>('Judgement', judgementSchema);
