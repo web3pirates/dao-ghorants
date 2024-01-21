@@ -40,7 +40,7 @@ export default function Login() {
           return response.json()
         })
         .then((data) => {
-          console.log({ data })
+          // console.log({ data })
           dispatch({
             type: 'LOGIN',
             payload: { user: data, isLoggedIn: true },

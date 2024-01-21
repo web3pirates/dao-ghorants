@@ -54,7 +54,7 @@ export function useOpenAI() {
         },
       ],
       model: 'gpt-3.5-turbo',
-      temperature: 0.5,
+      temperature: 0,
     })
 
     const answer = completion.choices[0].message.content
@@ -178,7 +178,7 @@ export function useOpenAI() {
         },
       ],
       model: 'gpt-3.5-turbo',
-      temperature: 0.5,
+      temperature: 0,
     })
 
     const answer = completion.choices[0].message.content

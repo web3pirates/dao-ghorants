@@ -1,15 +1,54 @@
-# dao-ghogrants
+# 💰 GHO Grants: Streamlining Grant Processes for DAOs
 
-We have identified the need that DAOs and opensource projects have in rewarding contributors in a seamless, transparent and trustless form.
+DAO-Ghorants is a project aimed at streamlining grant processes within Decentralized Autonomous Organizations (DAOs). By leveraging blockchain technology, this project enables DAOs to effortlessly create, evaluate, and distribute funds in a transparent and decentralized manner.
 
-Project contributions are hard to track and reward and the actual ways DAOs have to reward contributors are not efficient and make grants distribution cumbersome and expensive.
+## Features
 
-Our product aims at distributing a treasury of GHO tokens to project contributors, by checking deliverable quality.
+- **Automated Grant Submissions:** Simplify the grant submission process by automating various steps, making it easy for applicants to submit proposals.
 
-Possible variants:
+- **Transparent Evaluation:** Utilize smart contract-based criteria to transparently evaluate grant proposals, ensuring a fair and decentralized decision-making process.
 
-- Bug hunting project rewarding (an opensource project opens a bounty and as soon as the bounty is fulfilled a payment is rewarded to the bounty winner, there is a product already used for this by hey https://github.com/algora-io, could be interesting to do it with GHO and account abstraction but could be limiting)
-- Reward dao grant proposals and generate a vesting scheme to distribute the grant periodically if checkin criteria are met (there is a dashboard to which projects can make proposals and grants can be awarded faster and blocked if for some reason criteria are not met anymore).
-  Inspiration for this comes from RetroPGF from Optimism, the issue I see they have is that the grant is awarded months after the project has been submitted and grants can go to projects that are not active anymore. The idea for the project could be to trust grant applicants proposals but stop distributing them the grant if they are not active on a project or reduce grant value if project quality decreases.
-- Hackathon prize distribution tool. Create a tool that enhances hackathon prizes distribution by checking the github repo metrics like commit frequency, single participant activity, code quality evaluation, code plagiarism. Add AI to give a first evaluation of the project.
-- Vesting tool for investors to distribute periodically funds to invested project. Similar checks but adding business metrics like TVL if DeFi apps, traffic or users if consumer apps.
+- **Efficient Fund Distributions:** Upon approval, execute seamless fund distributions using blockchain technology, enhancing efficiency and transparency in fund management.
+
+## Getting Started
+
+To explore and contribute to DAO-Ghorants, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/web3pirates/dao-ghorants.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd dao-ghorants
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the application:
+   ```bash
+   npm start
+   ```
+
+## Contributing
+
+If you are interested in contributing to DAO-Ghorants, please follow the guidelines outlined in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Issues and Feedback
+
+If you encounter any issues or have feedback, feel free to [open an issue](https://github.com/web3pirates/dao-ghorants/issues). Your input is valuable, and we appreciate your contributions.
+
+## License
+
+DAO-Ghorants is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for your own projects.
+
+---
+
+**Visit the [DAO-Ghorants GitHub Repository](https://github.com/web3pirates/dao-ghorants) for more information.**

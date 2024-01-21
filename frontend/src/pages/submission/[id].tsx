@@ -32,6 +32,7 @@ const SubmissionView = () => {
   const [score, setScore] = useState<number | null>(null)
   const [isTransacting, setIsTransacting] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [showAwardButton, setShowAwardButton] = useState(false)
   const router = useRouter()
   const {
     giveScoreForRepo,
@@ -190,6 +191,7 @@ const SubmissionView = () => {
     setGptJudgement(judgement)
 
     setScore(score)
+    setShowAwardButton(true)
   }
 
   if (!submission || !proposal)
@@ -393,15 +395,15 @@ const SubmissionView = () => {
               </div>
             )}
           </div>
-        </CustomContainer>
 
-        {isProposalAdmin && (
-          <Row>
-            <Button onClick={awardPrize} disabled={isTransacting}>
-              Accept and Award Prize
-            </Button>
-          </Row>
-        )}
+          {isProposalAdmin && showAwardButton && (
+            <Row>
+              <Button onClick={awardPrize} disabled={isTransacting}>
+                Accept and Award Prize
+              </Button>
+            </Row>
+          )}
+        </CustomContainer>
       </Layout>
     </>
   )
