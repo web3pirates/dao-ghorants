@@ -10,6 +10,7 @@ interface ICompetition extends Document {
   endDate: string;
   prize: number;
   admin: string;
+  typeOfGrant: string;
 }
 
 // Interface for the Submission model
@@ -20,6 +21,7 @@ interface ISubmission extends Document {
   address: string;
   githubUrl: string;
   proposalId: mongoose.Types.ObjectId;
+  chatGptScore: number;
 }
 
 interface IJudgement extends Document {
@@ -46,6 +48,7 @@ const competitionSchema: Schema = new Schema(
     admin: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
+    typeOfGrant: { type: String, required: true },
   },
   { timestamps: true },
 );
@@ -61,6 +64,7 @@ const submissionSchema: Schema = new Schema(
     description: { type: String, required: true },
     address: { type: String, required: true },
     githubUrl: { type: String, required: true },
+    chatGptScore: { type: Number },
   },
   { timestamps: true },
 );
