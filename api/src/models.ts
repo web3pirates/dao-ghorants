@@ -49,7 +49,7 @@ const competitionSchema: Schema = new Schema(
     admin: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    typeOfGrant: { type: String, required: true, default: 'project' },
+    typeOfGrant: { type: String, default: 'project' },
   },
   { timestamps: true },
 );

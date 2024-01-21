@@ -95,9 +95,11 @@ export default function Home() {
                       />
                       <h3>{competition.title}</h3>
                       <TinyLabelCard
-                        style={getBackgroundColor(competition.typeOfGrant)}
+                        style={getBackgroundColor(
+                          competition.typeOfGrant || 'project'
+                        )}
                       >
-                        {competition.typeOfGrant}
+                        {competition.typeOfGrant || 'project'}
                       </TinyLabelCard>
                       <p>
                         Start Date:{' '}

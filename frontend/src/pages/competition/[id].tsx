@@ -77,8 +77,10 @@ const CompetitionDetail = () => {
           <StyledImage src={competition.imageUrl} alt={competition.title} />
 
           <Title>{competition.title}</Title>
-          <LabelCard style={getBackgroundColor(competition.typeOfGrant)}>
-            {competition.typeOfGrant}
+          <LabelCard
+            style={getBackgroundColor(competition.typeOfGrant || 'project')}
+          >
+            {competition.typeOfGrant || 'project'}
           </LabelCard>
           <Description>
             Submitted by: <b>{competition.admin}</b>
