@@ -27,11 +27,11 @@ interface IJudgement extends Document {
   submissionId: string;
   judgeAddress: string;
   title: string;
-  creativity: number;
-  useOfBlockchain: number;
-  impact: number;
-  collaboration: number;
-  reliability: number;
+  creativity: string;
+  useOfBlockchain: string;
+  impact: string;
+  collaboration: string;
+  reliability: string;
   chatGptJudgement: string;
   chatGptScore: number;
 }
@@ -75,11 +75,11 @@ const judgementSchema: Schema = new Schema(
     submissionId: { type: String },
     judgeAddress: { type: String },
     title: { type: String },
-    creativity: { type: Number },
-    useOfBlockchain: { type: Number },
-    impact: { type: Number },
-    collaboration: { type: Number },
-    reliability: { type: Number },
+    creativity: { type: String },
+    useOfBlockchain: { type: String },
+    impact: { type: String },
+    collaboration: { type: String },
+    reliability: { type: String },
     chatGptJudgement: { type: String },
     chatGptScore: { type: Number },
   },

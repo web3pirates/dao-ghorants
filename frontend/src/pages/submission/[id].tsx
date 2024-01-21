@@ -33,7 +33,15 @@ const SubmissionView = () => {
   const [isTransacting, setIsTransacting] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { giveScoreForRepo, judgeRepo } = useOpenAI()
+  const {
+    giveScoreForRepo,
+    judgeRepo,
+    checkCreativity,
+    checkImpact,
+    checkReliability,
+    checkUseOfBlockchain,
+    checkCollaboration,
+  } = useOpenAI()
   const { address } = useAccount()
   const { fetchSubmission, fetchCompetition, fetchJudgement } = useDB()
   const { fetchRepoInfo } = useGithub()
@@ -44,38 +52,27 @@ const SubmissionView = () => {
     return await fetchSubmission(id as string)
   }, [router.query])
 
-  console.log('submission', submission)
-
   const judgement = useAsyncMemo(async () => {
     if (!id) return
     return await fetchJudgement(id as string)
-  }, [router.query])
-
-  console.log('judgement', judgement)
+  }, [router.query, gptJudgement])
 
   const repoInfo = useAsyncMemo(async () => {
     if (!submission) return
-
-    console.log('submission', submission)
 
     // const owner = submission.githubUrl.split('/')[3]
     const owner = 'wagmi'
     return await fetchRepoInfo(owner, submission.githubUrl)
   }, [submission])
 
-  console.log(repoInfo)
-
   const proposal = useAsyncMemo(async () => {
     try {
-      console.log('submission for PROPOSAL', submission)
       if (!submission) return
       return await fetchCompetition(submission.proposalId)
     } catch (e) {
       console.error(e)
     }
   }, [submission])
-
-  console.log('proposal', proposal)
 
   const isProposalAdmin = useMemo(
     () => address === proposal?.admin,
@@ -124,6 +121,28 @@ const SubmissionView = () => {
       submission.githubUrl
     )
 
+    const creativity = await checkCreativity(
+      proposal.description,
+      submission.githubUrl
+    )
+
+    const impact = await checkImpact(proposal.description, submission.githubUrl)
+
+    // const reliability = await checkReliability(
+    //   proposal.description,
+    //   submission.githubUrl
+    // )
+
+    const useOfBlockchain = await checkUseOfBlockchain(
+      proposal.description,
+      submission.githubUrl
+    )
+
+    // const collaboration = await checkCollaboration(
+    //   proposal.description,
+    //   submission.githubUrl
+    // )
+
     //   title: { type: String },
     //   creativity: { type: Number },
     //   useOfBlockchain: { type: Number },
@@ -142,10 +161,15 @@ const SubmissionView = () => {
       judgeAddress: address,
       chatGptJudgement: judgement,
       chatGptScore: score,
+      creativity,
+      useOfBlockchain,
+      impact,
+      // collaboration,
+      // reliability,
     }
 
     try {
-      await http({
+      const newJudgement = await http({
         method: 'POST',
         form: formData,
         json: true,
@@ -157,6 +181,7 @@ const SubmissionView = () => {
 
     setIsLoading(false)
     setGptJudgement(judgement)
+
     setScore(score)
   }
 
@@ -228,35 +253,119 @@ const SubmissionView = () => {
                 <Description>Analyzing repository...</Description>
                 <Loader />
               </div>
-            ) : !!gptJudgement ? (
-              <div>
-                <Description>Repository has been analyzed! </Description>
-                <GPTDescription>{gptJudgement}</GPTDescription>
-                <GPTDescription>
-                  {' '}
-                  The repository has a score of {score} out of 100.
-                </GPTDescription>
-                {scoreIsGood ? (
-                  <GPTDescription> This is a good score! 🚀🚀 </GPTDescription>
-                ) : (
-                  <GPTDescription> This is a bad score! 😭</GPTDescription>
-                )}
-              </div>
             ) : !!judgement ? (
               <div>
-                <Description>
-                  Repository has been analyzed on the {judgement.createdAt}{' '}
-                </Description>
-                <GPTDescription>{judgement.textJudgement}</GPTDescription>
+                <GPTDescription>
+                  Repository has been analyzed on the{' '}
+                  <b>
+                    {new Date(judgement.updatedAt).toLocaleTimeString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </b>
+                </GPTDescription>
+                <GPTDescription>
+                  Reviewed by <b>{judgement.judgeAddress}</b>
+                </GPTDescription>
+                <GPTDescription>
+                  <b>
+                    Quick overview of the project in relation to the
+                    requirements and reliability. (Max 4 sentences)
+                  </b>
+                  <br />
+                  <div>{judgement.chatGptJudgement}</div>
+                </GPTDescription>
+                {judgement.creativity !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      1. Creativity and Innovation: Does the project showcase
+                      original and forward-thinking ideas in the blockchain
+                      space? Does it push the boundaries of whats possible with
+                      blockchain technology?
+                    </b>
+                    <br />
+                    <div>{judgement.creativity}</div>
+                  </GPTDescription>
+                ) : null}
+                {judgement.useOfBlockchain !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      2. Use of Blockchain: Does the project leverage blockchain
+                      technology effectively? Does it demonstrate a deep
+                      understanding of blockchain concepts and their
+                      application?
+                    </b>
+                    <br />
+                    <div>{judgement.useOfBlockchain}</div>
+                  </GPTDescription>
+                ) : null}
+                {judgement.impact !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      3. Impact and Social Good: Does the project address social
+                      or environmental challenges? Does it have the potential to
+                      create a positive impact on society?
+                    </b>
+                    <br />
+                    <div>{judgement.impact}</div>
+                  </GPTDescription>
+                ) : null}
+                {judgement.collaboration !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      4. Collaboration and Contribution: Does the project
+                      encourage collaboration and engagement with like-minded
+                      individuals? Does it provide opportunities for
+                      participants to contribute to the evolving world of
+                      blockchain innovation?
+                    </b>
+                    <br />
+                    <div>{judgement.collaboration}</div>
+                  </GPTDescription>
+                ) : null}
+                {judgement.reliability !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      5. Reliability: Is the project well-documented and
+                      maintained? Are there any known issues or bugs? Does it
+                      have a clear roadmap or plan for future development?
+                    </b>
+                    <br />
+                    <div>{judgement.reliability}</div>
+                  </GPTDescription>
+                ) : null}
                 <GPTDescription>
                   {' '}
-                  The repository has a score of {judgement.overallScore} out of
-                  100.
+                  The repository has a score of <b>
+                    {judgement.chatGptScore}
+                  </b>{' '}
+                  out of 100.
                 </GPTDescription>
-                {judgement.overallScore > 80 ? (
-                  <GPTDescription> This is a good score! 🚀🚀 </GPTDescription>
+                {judgement.chatGptScore > 80 ? (
+                  <GPTDescription
+                    style={{
+                      backgroundColor: 'green',
+                      color: 'white',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    {' '}
+                    This is a good score! 🚀🚀{' '}
+                  </GPTDescription>
                 ) : (
-                  <GPTDescription> This is a bad score! 😭</GPTDescription>
+                  <GPTDescription
+                    style={{
+                      backgroundColor: 'red',
+                      color: 'white',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    {' '}
+                    This is a bad score! 😭😭{' '}
+                  </GPTDescription>
                 )}
               </div>
             ) : (

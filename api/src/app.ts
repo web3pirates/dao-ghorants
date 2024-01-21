@@ -51,12 +51,8 @@ app.get('/competitions', async (req, res) => {
 
 // Endpoint to retrieve a competition by ID
 app.get('/competitions/:id', async (req, res) => {
-  console.log('req.params', req.params);
-
   try {
     const competition = await Competition.findOne({ _id: req.params.id });
-
-    console.log('competition', competition);
 
     if (!competition) {
       return res.status(404).send({ error: 'Competition not found' });
@@ -71,8 +67,6 @@ app.get('/competitions/:id', async (req, res) => {
 
 // Endpoint to retrieve all submissions for a competition
 app.get('/competitions/:id/submissions', async (req, res) => {
-  console.log('req.params', req.params);
-
   try {
     const submissions = await Submission.find({
       proposalId: req.params.id,
@@ -147,6 +141,12 @@ app.post('/judgements', async (req, res) => {
   if (findJudgement) {
     findJudgement.chatGptJudgement = req.body.chatGptJudgement;
     findJudgement.chatGptScore = req.body.chatGptScore;
+    findJudgement.creativity = req.body.creativity;
+    findJudgement.useOfBlockchain = req.body.useOfBlockchain;
+    findJudgement.impact = req.body.impact;
+    findJudgement.collaboration = req.body.collaboration;
+    findJudgement.reliability = req.body.reliability;
+    findJudgement.judgeAddress = req.body.judgeAddress;
     findJudgement.save();
     res.status(200).send(findJudgement);
   } else {

@@ -15,7 +15,6 @@ export function useGithub() {
       console.error(e)
     }
 
-    console.log(res)
     return res
   }
 

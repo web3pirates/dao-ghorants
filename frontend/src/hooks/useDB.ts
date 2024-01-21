@@ -19,9 +19,6 @@ export function useDB() {
 
   async function fetchCompetition(id: string): Promise<any> {
     let res
-
-    // console.log('fetchCompetition', _id)
-
     try {
       res = await http({
         method: 'GET',
@@ -32,8 +29,6 @@ export function useDB() {
     } catch (e) {
       console.error(e)
     }
-
-    console.log('res', res)
 
     return res
   }
