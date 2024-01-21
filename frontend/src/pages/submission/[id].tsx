@@ -288,8 +288,8 @@ const SubmissionView = () => {
                 {judgement.plagiarized !== undefined ? (
                   <GPTDescription>
                     <b>
-                      0. Is this a unique project? Does it have any
-                      similarities?
+                      Plagiarism Check: Is this a unique project? Does it have
+                      any similarities?
                     </b>
                     <br />
                     <div>{judgement.plagiarized}</div>
@@ -298,7 +298,7 @@ const SubmissionView = () => {
                 {judgement.creativity !== undefined ? (
                   <GPTDescription>
                     <b>
-                      1. Creativity and Innovation: Does the project showcase
+                      Creativity and Innovation: Does the project showcase
                       original and forward-thinking ideas in the blockchain
                       space? Does it push the boundaries of whats possible with
                       blockchain technology?
@@ -310,7 +310,7 @@ const SubmissionView = () => {
                 {judgement.useOfBlockchain !== undefined ? (
                   <GPTDescription>
                     <b>
-                      2. Use of Blockchain: Does the project leverage blockchain
+                      Use of Blockchain: Does the project leverage blockchain
                       technology effectively? Does it demonstrate a deep
                       understanding of blockchain concepts and their
                       application?
@@ -322,8 +322,8 @@ const SubmissionView = () => {
                 {judgement.impact !== undefined ? (
                   <GPTDescription>
                     <b>
-                      3. Impact and Social Good: Does the project address social
-                      or environmental challenges? Does it have the potential to
+                      Impact and Social Good: Does the project address social or
+                      environmental challenges? Does it have the potential to
                       create a positive impact on society?
                     </b>
                     <br />

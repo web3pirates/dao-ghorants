@@ -79,6 +79,10 @@ To explore and contribute to DAO-Ghorants, follow these steps:
 - **Innovative Evaluation with ChatGPT:**
   - The use of ChatGPT in the evaluation process provides a novel and efficient way to assess grant proposals, enhancing the objectivity and depth of the evaluation.
 
+### Flow
+
+![DAO-Ghorants Flowchart](ghogrants.drawio.png)
+
 ### Future Considerations:
 
 - Continuous refinement of ChatGPT-based evaluation.
