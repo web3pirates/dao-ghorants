@@ -32,7 +32,7 @@ const CreateSubmissionPage = () => {
     address: '',
     description: '',
     githubUrl: '',
-    proposalId: 0,
+    proposalId: '',
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -58,7 +58,7 @@ const CreateSubmissionPage = () => {
     setFormData((prev) => ({
       ...prev,
       address: address || '',
-      proposalId: Number(router.query.competition),
+      proposalId: router.query.competition as string,
     }))
   }, [address, router.query])
 
@@ -88,10 +88,10 @@ const CreateSubmissionPage = () => {
         as="main"
         style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
       >
-        <Title>Submit your project</Title>
+        <Title>Submit your work</Title>
         <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Submit your work to participate to the competition. You can submit
+          multiple times.
         </Description>
 
         <Form onSubmit={handleSubmit}>
@@ -125,6 +125,7 @@ const CreateSubmissionPage = () => {
                 return (
                   <option
                     value={repo.fullName}
+                    key={repo.id}
                     selected={repoSelected === repo.FullName}
                     style={{ color: 'black' }}
                   >

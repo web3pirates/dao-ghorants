@@ -183,7 +183,7 @@ const CreateCompetitionPage = () => {
               onChange={handleChange}
             >
               <option value="project">Project</option>
-              <option value="bug-hunting">Bug Hunting</option>
+              <option value="bounty">Bounty</option>
               <option value="social">Hackathon</option>
               <option value="translation">Translation</option>
               <option value="documentation">Documentation</option>

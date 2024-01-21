@@ -29,8 +29,8 @@ export default function Home() {
     switch (typeOfGrant) {
       case 'project':
         return { backgroundColor: '#00b300' }
-      case 'bug-hunting':
-        return { backgroundColor: '#ffcc00' } // Choose your color for bug-hunting
+      case 'bounty':
+        return { backgroundColor: '#ffcc00' } // Choose your color for bounty
       case 'social':
         return { backgroundColor: '#ff0000' }
       case 'translation':

@@ -40,6 +40,7 @@ const SubmissionView = () => {
     checkImpact,
     checkReliability,
     checkUseOfBlockchain,
+    checkPlagiarized,
     checkCollaboration,
   } = useOpenAI()
   const { address } = useAccount()
@@ -79,7 +80,7 @@ const SubmissionView = () => {
     [address, proposal]
   )
 
-  const scoreIsGood = useMemo(() => score && score > 80, [score])
+  const scoreIsGood = useMemo(() => score && score > 75, [score])
 
   const awardPrize = useCallback(async () => {
     if (!submission || !proposal || !isProposalAdmin) return
@@ -138,6 +139,11 @@ const SubmissionView = () => {
       submission.githubUrl
     )
 
+    const plagiarized = await checkPlagiarized(
+      proposal.description,
+      submission.githubUrl
+    )
+
     // const collaboration = await checkCollaboration(
     //   proposal.description,
     //   submission.githubUrl
@@ -164,6 +170,7 @@ const SubmissionView = () => {
       creativity,
       useOfBlockchain,
       impact,
+      plagiarized,
       // collaboration,
       // reliability,
     }
@@ -276,6 +283,16 @@ const SubmissionView = () => {
                   <br />
                   <div>{judgement.chatGptJudgement}</div>
                 </GPTDescription>
+                {judgement.plagiarized !== undefined ? (
+                  <GPTDescription>
+                    <b>
+                      1. Is this a unique project? Does it have any
+                      similarities?
+                    </b>
+                    <br />
+                    <div>{judgement.plagiarized}</div>
+                  </GPTDescription>
+                ) : null}
                 {judgement.creativity !== undefined ? (
                   <GPTDescription>
                     <b>
@@ -342,7 +359,7 @@ const SubmissionView = () => {
                   </b>{' '}
                   out of 100.
                 </GPTDescription>
-                {judgement.chatGptScore > 80 ? (
+                {judgement.chatGptScore > 75 ? (
                   <GPTDescription
                     style={{
                       backgroundColor: 'green',
@@ -378,10 +395,12 @@ const SubmissionView = () => {
           </div>
         </CustomContainer>
 
-        {isProposalAdmin && score && scoreIsGood && (
-          <Button onClick={awardPrize} disabled={isTransacting}>
-            Accept and Award Prize
-          </Button>
+        {isProposalAdmin && (
+          <Row>
+            <Button onClick={awardPrize} disabled={isTransacting}>
+              Accept and Award Prize
+            </Button>
+          </Row>
         )}
       </Layout>
     </>

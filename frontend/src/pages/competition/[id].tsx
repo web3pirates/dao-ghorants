@@ -43,8 +43,8 @@ const CompetitionDetail = () => {
     switch (typeOfGrant) {
       case 'project':
         return { backgroundColor: '#00b300' }
-      case 'bug-hunting':
-        return { backgroundColor: '#ffcc00' } // Choose your color for bug-hunting
+      case 'bounty':
+        return { backgroundColor: '#ffcc00' } // Choose your color for bounty
       case 'social':
         return { backgroundColor: '#ff0000' }
       case 'translation':
@@ -80,7 +80,15 @@ const CompetitionDetail = () => {
           <LabelCard style={getBackgroundColor(competition.typeOfGrant)}>
             {competition.typeOfGrant}
           </LabelCard>
-          <Description>{competition.description}</Description>
+          <Description>
+            Submitted by: <b>{competition.admin}</b>
+          </Description>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: competition.description.replace(/\\n/g, '<br>'),
+            }}
+          />
+
           <Row>
             <StyledDetail>
               <span>Starts at:</span>{' '}

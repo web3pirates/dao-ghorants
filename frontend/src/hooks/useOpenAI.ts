@@ -165,6 +165,26 @@ export function useOpenAI() {
     return answer
   }
 
+  async function checkPlagiarized(prompt: string, githubUrl: string) {
+    const completion = await openai.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}".
+          You need to judge the result which can be found in the github repo at the url: "${githubUrl}".
+          Plagiarized: Is the project plagiarized?
+          Give an evaluation of twosentence of the plagiarism of the project.
+          `,
+        },
+      ],
+      model: 'gpt-3.5-turbo',
+      temperature: 0.5,
+    })
+
+    const answer = completion.choices[0].message.content
+    return answer
+  }
+
   return {
     judgeRepo,
     giveScoreForRepo,
@@ -173,5 +193,6 @@ export function useOpenAI() {
     checkImpact,
     checkCollaboration,
     checkReliability,
+    checkPlagiarized,
   }
 }

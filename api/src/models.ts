@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 // Interface for the Competition model
 interface ICompetition extends Document {
@@ -33,6 +33,7 @@ interface IJudgement extends Document {
   useOfBlockchain: string;
   impact: string;
   collaboration: string;
+  plagiarized: string;
   reliability: string;
   chatGptJudgement: string;
   chatGptScore: number;
@@ -48,9 +49,9 @@ const competitionSchema: Schema = new Schema(
     admin: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    typeOfGrant: { type: String, required: true },
+    typeOfGrant: { type: String, required: true, default: 'project' },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const submissionSchema: Schema = new Schema(
@@ -66,7 +67,7 @@ const submissionSchema: Schema = new Schema(
     githubUrl: { type: String, required: true },
     chatGptScore: { type: Number },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const judgementSchema: Schema = new Schema(
@@ -84,21 +85,13 @@ const judgementSchema: Schema = new Schema(
     impact: { type: String },
     collaboration: { type: String },
     reliability: { type: String },
+    plagiarized: { type: String },
     chatGptJudgement: { type: String },
     chatGptScore: { type: Number },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Competition = mongoose.model<ICompetition>(
-  "Competition",
-  competitionSchema
-);
-export const Submission = mongoose.model<ISubmission>(
-  "Submission",
-  submissionSchema
-);
-export const Judgement = mongoose.model<IJudgement>(
-  "Judgement",
-  judgementSchema
-);
+export const Competition = mongoose.model<ICompetition>('Competition', competitionSchema);
+export const Submission = mongoose.model<ISubmission>('Submission', submissionSchema);
+export const Judgement = mongoose.model<IJudgement>('Judgement', judgementSchema);

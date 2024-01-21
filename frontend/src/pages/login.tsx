@@ -14,7 +14,7 @@ export default function Login() {
   const router = useRouter()
 
   useEffect(() => {
-    if (isLoggedIn) router.push(`/competition/65abdb44f987405f6ae76158`)
+    if (isLoggedIn) router.push(`/`)
   }, [router, isLoggedIn])
 
   useEffect(() => {
