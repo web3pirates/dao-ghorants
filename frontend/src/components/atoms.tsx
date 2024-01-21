@@ -21,6 +21,35 @@ export const Layout = styled.div`
   }
 `
 
+export const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`
+
+export const LabelCard = styled.div`
+  margin-bottom: 5px;
+  width: fit-content;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0.5rem;
+  text-transform: capitalize;
+`
+
+export const TinyLabelCard = styled.div`
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  width: fit-content;
+  color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-weight: bold;
+  padding: 0.3rem;
+  text-transform: capitalize;
+`
+
 export const Container = styled.div`
   width: 100%;
   max-width: 80rem;
@@ -38,12 +67,6 @@ export const Form = styled.form`
 
 export const FormGroup = styled.div`
   margin-bottom: 15px;
-`
-
-export const Label = styled.label`
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
 `
 
 export const Input = styled.input`
@@ -218,6 +241,15 @@ export const TextArea = styled.textarea`
   font-size: 1rem;
   line-height: 1.5;
   resize: vertical;
+`
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
 `
 
 const rotate = keyframes`

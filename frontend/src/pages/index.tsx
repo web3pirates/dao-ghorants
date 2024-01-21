@@ -12,6 +12,7 @@ import {
   HackathonBox,
   HackathonsContainer,
   Layout,
+  TinyLabelCard,
   Title,
 } from '@/components/atoms'
 import { useDB } from '@/hooks/useDB'
@@ -23,6 +24,25 @@ export default function Home() {
   const { fetchCompetitions } = useDB()
 
   const competitions = useAsyncMemo(async () => await fetchCompetitions(), [])
+
+  const getBackgroundColor = (typeOfGrant: string) => {
+    switch (typeOfGrant) {
+      case 'project':
+        return { backgroundColor: '#00b300' }
+      case 'bug-hunting':
+        return { backgroundColor: '#ffcc00' } // Choose your color for bug-hunting
+      case 'social':
+        return { backgroundColor: '#ff0000' }
+      case 'translation':
+        return { backgroundColor: '#9900cc' } // Choose your color for translation
+      case 'documentation':
+        return { backgroundColor: '#0000ff' }
+      case 'hackathon':
+        return { backgroundColor: '#ff00ff' }
+      default:
+        return { backgroundColor: '#e0e0e0' } // Default color if none of the cases match
+    }
+  }
 
   return (
     <>
@@ -74,6 +94,11 @@ export default function Home() {
                         alt={`Hackathon ${index + 1}`}
                       />
                       <h3>{competition.title}</h3>
+                      <TinyLabelCard
+                        style={getBackgroundColor(competition.typeOfGrant)}
+                      >
+                        {competition.typeOfGrant}
+                      </TinyLabelCard>
                       <p>
                         Start Date:{' '}
                         {new Date(competition.startDate).toDateString()}

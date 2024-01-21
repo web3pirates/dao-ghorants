@@ -14,6 +14,7 @@ import {
   Input,
   Label,
   Layout,
+  Select,
   TextArea,
   Title,
 } from '@/components/atoms'
@@ -32,6 +33,7 @@ const CreateCompetitionPage = () => {
     startDate: '',
     endDate: '',
     description: '',
+    typeOfGrant: '',
     prize: '',
     admin: '',
     imageUrl: '',
@@ -162,22 +164,37 @@ const CreateCompetitionPage = () => {
 
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="title">Competition Title:</Label>
+            <Label htmlFor="title">Grant Title:</Label>
             <Input
               type="text"
               id="title"
               name="title"
-              placeholder="Enter competition title"
+              placeholder="Enter grant title"
               value={formData.title}
               onChange={handleChange}
             />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="description">Grant Type:</Label>
+            <Select
+              id="type"
+              name="type"
+              value={formData.typeOfGrant}
+              onChange={handleChange}
+            >
+              <option value="project">Project</option>
+              <option value="bug-hunting">Bug Hunting</option>
+              <option value="social">Hackathon</option>
+              <option value="translation">Translation</option>
+              <option value="documentation">Documentation</option>
+            </Select>
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Description:</Label>
             <TextArea
               id="description"
               name="description"
-              placeholder="Enter competition description"
+              placeholder="Enter grant description"
               value={formData.description}
               onChange={handleChange}
               rows={5}

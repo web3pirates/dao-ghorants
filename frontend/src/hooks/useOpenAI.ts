@@ -90,7 +90,6 @@ export function useOpenAI() {
       messages: [
         {
           role: 'system',
-          //check creativity
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}".
           You need to judge the result which can be found in the github repo at the url: "${githubUrl}".       
           Use of Blockchain: Does the project leverage blockchain technology effectively? Does it demonstrate a deep understanding of blockchain concepts and their application?
@@ -111,7 +110,6 @@ export function useOpenAI() {
       messages: [
         {
           role: 'system',
-          //check creativity
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}".
           You need to judge the result which can be found in the github repo at the url: "${githubUrl}".
           Impact and Social Good: Does the project address social or environmental challenges? Does it have the potential to create a positive impact on society?
@@ -132,7 +130,6 @@ export function useOpenAI() {
       messages: [
         {
           role: 'system',
-          //check creativity
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}".
           You need to judge the result which can be found in the github repo at the url: "${githubUrl}".
           Collaboration and Contribution: Does the project encourage collaboration and engagement with like-minded individuals? Does it provide opportunities for participants to contribute to the evolving world of blockchain innovation?
@@ -153,7 +150,6 @@ export function useOpenAI() {
       messages: [
         {
           role: 'system',
-          //check creativity
           content: `You are a blockchain organization that needs to assure that the following gets fulfilled: "${prompt}".
           You need to judge the result which can be found in the github repo at the url: "${githubUrl}".
           Reliability: Is the project well-documented and maintained? Are there any known issues or bugs? Does it have a clear roadmap or plan for future development?

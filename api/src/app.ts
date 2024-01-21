@@ -70,7 +70,7 @@ app.get('/competitions/:id/submissions', async (req, res) => {
   try {
     const submissions = await Submission.find({
       proposalId: req.params.id,
-    });
+    }).sort({ createdAt: -1 });
 
     res.send(submissions);
   } catch (error) {
@@ -154,10 +154,27 @@ app.post('/judgements', async (req, res) => {
     await judgement.save();
     res.status(201).send(judgement);
   }
+
+  const submission = await Submission.findOneAndUpdate(
+    {
+      submissionId: req.body.submissionId,
+    },
+    {
+      chatGptJudgement: req.body.chatGptJudgement,
+      chatGptScore: req.body.chatGptScore,
+    },
+  );
 });
 
 // Endpoint to retrieve the judgement for a submission
 app.get('/judgements/:id', async (req, res) => {
   const judgement = await Judgement.find({ submissionId: req.params.id });
   res.send(judgement[0]);
+});
+
+// Endpoint to retrieve the judgements for a competition
+app.get('/judgements/:id/by-competition', async (req, res) => {
+  console.log('fetch judgements', req.params.id);
+  const judgements = await Judgement.find();
+  res.send(judgements);
 });
