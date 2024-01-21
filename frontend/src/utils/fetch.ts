@@ -1,4 +1,3 @@
-const BASE_URL = 'http://localhost:8000'
 export const http = async (args: {
   method: string
   url: string
@@ -6,7 +5,8 @@ export const http = async (args: {
   json: boolean
 }) => {
   const { method, url, form, json } = args
-  const fullUrl = url.indexOf('http') === 0 ? url : BASE_URL + url
+  const fullUrl =
+    url.indexOf('http') === 0 ? url : process.env.NEXT_PUBLIC_BASE_URL + url
   const options = {
     method: method || 'GET',
     headers: {
