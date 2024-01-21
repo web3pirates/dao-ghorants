@@ -119,9 +119,8 @@ const CreateCompetitionPage = () => {
     })
 
     const proposalId = parseInt(
-      transaction.logs
-        .find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
-        ?.data.split(PROPOSAL_CREATED_TOPIC_0)[1] || '0x0',
+      transaction.logs.find((l) => l.topics[0] === PROPOSAL_CREATED_TOPIC_0)
+        ?.topics[1] || '0x0',
       16
     )
 

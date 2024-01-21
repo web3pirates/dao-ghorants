@@ -15,8 +15,8 @@ contract ProposalManager {
     mapping(uint256 => Proposal) public proposals;
     uint256 public lastId;
 
-    event ProposalCreated(address proposer, uint256 id);
-    event ProposalEmitted(address redeemer, uint256 id);
+    event ProposalCreated(address proposer, uint256 indexed id);
+    event ProposalEmitted(address redeemer, uint256 indexed id);
 
     function createProposal(uint256 amount) public {
         require(amount != 0, "Amount must be greater than zero");
