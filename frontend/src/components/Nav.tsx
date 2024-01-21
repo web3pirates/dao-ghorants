@@ -1,4 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 import { useSharedState } from '@/utils/store'
@@ -27,7 +28,7 @@ export function Nav() {
   return (
     <Wrapper>
       <Title>
-        <a href="/">💰GHO Grants</a>
+        <Link href="/">💰GHO Grants</Link>
       </Title>
       <div style={{ display: 'flex', gap: '10px' }}>
         {user && (
